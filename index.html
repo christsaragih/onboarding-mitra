@@ -1,1086 +1,853 @@
 <!doctype html>
 <html lang="id">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Pendaftaran Mitra Pengemudi</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pendaftaran Mitra Pengemudi</title>
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #175cd3;
-            --primary-dark: #1249a8;
-            --dark: #101828;
-            --muted: #667085;
-            --bg: #f4f7fb;
-            --line: #e4e7ec;
-            --success: #067647;
-            --warning: #b54708;
-            --danger: #b42318;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--dark);
-            font-family: Inter, "Segoe UI", Arial, sans-serif;
-            font-size: 17px;
-            line-height: 1.65;
-        }
-
-        .app-shell {
-            width: 100%;
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 14px 12px 100px;
-        }
-
-        .app-card {
-            background: #fff;
-            border: 1px solid var(--line);
-            border-radius: 22px;
-            box-shadow: 0 8px 28px rgba(16, 24, 40, .07);
-            overflow: hidden;
-        }
-
-        .app-header {
-            padding: 18px 20px 10px;
-            background: #fff;
-        }
-
-        .brand {
-            color: var(--primary);
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: .05em;
-        }
-
-        .step {
-            display: none
-        }
-
-        .step.active {
-            display: block
-        }
-
-        .content {
-            padding: 8px 20px 24px
-        }
-
-        h1 {
-            font-size: 30px;
-            line-height: 1.2;
-            font-weight: 800;
-            margin: 10px 0 10px;
-            letter-spacing: -.02em;
-        }
-
-        h2 {
-            font-size: 23px;
-            line-height: 1.3;
-            font-weight: 800;
-            margin: 28px 0 12px;
-        }
-
-        h3 {
-            font-size: 20px;
-            font-weight: 800
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        .small {
-            font-size: 14px
-        }
-
-        .progress {
-            height: 10px;
-            border-radius: 99px;
-            background: #eaecf0;
-        }
-
-        .progress-bar {
-            background: var(--primary);
-            border-radius: 99px;
-            transition: width .25s ease;
-        }
-
-        .info-card,
-        .warning-card,
-        .danger-card,
-        .success-card,
-        .calc-card {
-            border-radius: 16px;
-            padding: 17px;
-            border: 1px solid var(--line);
-        }
-
-        .info-card {
-            background: #f8fafc
-        }
-
-        .warning-card {
-            background: #fffaeb;
-            border-color: #fedf89
-        }
-
-        .danger-card {
-            background: #fef3f2;
-            border-color: #fecdca;
-            color: #912018
-        }
-
-        .success-card {
-            background: #ecfdf3;
-            border-color: #abefc6
-        }
-
-        .calc-card {
-            background: #f2f4f7
-        }
-
-        .big-number {
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.15;
-        }
-
-        .stat-card {
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 17px;
-            height: 100%;
-            background: #fff;
-        }
-
-        .stat-icon {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            background: #eff8ff;
-            color: var(--primary);
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .rule-box {
-            background: #f8fafc;
-            border: 1px solid var(--line);
-            border-radius: 17px;
-            padding: 20px;
-            white-space: pre-line;
-            line-height: 1.75;
-            margin-top: 16px;
-        }
-
-        .rule-title {
-            font-size: 25px;
-            line-height: 1.3;
-            font-weight: 800;
-        }
-
-        .rule-number {
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 15px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .form-control,
-        .form-select {
-            min-height: 54px;
-            border-radius: 12px;
-            border-color: #cfd5df;
-            font-size: 17px;
-            padding: 12px 14px;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 .2rem rgba(23, 92, 211, .12);
-        }
-
-        textarea.form-control {
-            min-height: 100px
-        }
-
-        .form-check-box {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 16px;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .form-check-box input {
-            flex: 0 0 auto;
-            width: 25px;
-            height: 25px;
-            margin-top: 2px;
-        }
-
-        .choice-label {
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        .btn {
-            min-height: 54px;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 750;
-            padding: 12px 18px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus {
-            background: var(--primary-dark);
-            border-color: var(--primary-dark);
-        }
-
-        .btn-outline-primary {
-            border-width: 2px;
-        }
-
-        .choice-btn {
-            min-height: 58px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .choice-btn i {
-            font-size: 22px
-        }
-
-        .choice-btn.active-choice {
-            background: #eff8ff;
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .action-bar {
-            position: sticky;
-            bottom: 0;
-            z-index: 20;
-            margin: 20px -20px -24px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, .97);
-            border-top: 1px solid var(--line);
-            backdrop-filter: blur(8px);
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 15px;
-            font-weight: 650;
-            margin-top: 10px;
-        }
-
-        .consent-time {
-            color: var(--success);
-            font-size: 14px;
-            font-weight: 700;
-            margin-top: 9px;
-        }
-
-        .summary {
-            background: #f8fafc;
-            border: 1px solid var(--line);
-            border-radius: 15px;
-            padding: 16px;
-            white-space: pre-wrap;
-            line-height: 1.65;
-        }
-
-        .accordion-button {
-            font-size: 17px;
-            font-weight: 750;
-        }
-
-        .accordion-body {
-            font-size: 16px;
-        }
-
-        .badge-soft {
-            background: #eff8ff;
-            color: var(--primary);
-            font-size: 14px;
-            padding: 7px 10px;
-        }
-
-        .hidden {
-            display: none !important
-        }
-
-        @media(max-width:576px) {
-            body {
-                font-size: 17px
-            }
-
-            .app-shell {
-                padding: 8px 8px 100px
-            }
-
-            .app-header {
-                padding: 15px 16px 8px
-            }
-
-            .content {
-                padding: 6px 16px 20px
-            }
-
-            h1 {
-                font-size: 26px
-            }
-
-            h2 {
-                font-size: 22px
-            }
-
-            .rule-title {
-                font-size: 23px
-            }
-
-            .big-number {
-                font-size: 26px
-            }
-
-            .action-bar {
-                margin-left: -16px;
-                margin-right: -16px;
-                padding-left: 16px;
-                padding-right: 16px
-            }
-
-            .action-bar .btn {
-                width: 100%
-            }
-        }
-    </style>
+<style>
+:root{
+  --primary:#175cd3;
+  --primary-dark:#1249a8;
+  --dark:#101828;
+  --muted:#667085;
+  --bg:#f4f7fb;
+  --line:#e4e7ec;
+  --success:#067647;
+  --warning:#b54708;
+  --danger:#b42318;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--dark);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+}
+.app-shell{
+  width:100%;
+  max-width:780px;
+  margin:0 auto;
+  padding:14px 12px 100px;
+}
+.app-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 8px 28px rgba(16,24,40,.07);
+  overflow:hidden;
+}
+.app-header{
+  padding:18px 20px 10px;
+  background:#fff;
+}
+.brand{
+  color:var(--primary);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.05em;
+}
+.step{display:none}
+.step.active{display:block}
+.content{padding:8px 20px 24px}
+h1{
+  font-size:30px;
+  line-height:1.2;
+  font-weight:800;
+  margin:10px 0 10px;
+  letter-spacing:-.02em;
+}
+h2{
+  font-size:23px;
+  line-height:1.3;
+  font-weight:800;
+  margin:28px 0 12px;
+}
+h3{font-size:20px;font-weight:800}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.progress{
+  height:10px;
+  border-radius:99px;
+  background:#eaecf0;
+}
+.progress-bar{
+  background:var(--primary);
+  border-radius:99px;
+  transition:width .25s ease;
+}
+.info-card,.warning-card,.danger-card,.success-card,.calc-card{
+  border-radius:16px;
+  padding:17px;
+  border:1px solid var(--line);
+}
+.info-card{background:#f8fafc}
+.warning-card{background:#fffaeb;border-color:#fedf89}
+.danger-card{background:#fef3f2;border-color:#fecdca;color:#912018}
+.success-card{background:#ecfdf3;border-color:#abefc6}
+.calc-card{background:#f2f4f7}
+.big-number{
+  font-size:28px;
+  font-weight:800;
+  line-height:1.15;
+}
+.stat-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:17px;
+  height:100%;
+  background:#fff;
+}
+.stat-icon{
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:12px;
+  background:#eff8ff;
+  color:var(--primary);
+  font-size:22px;
+  margin-bottom:10px;
+}
+.rule-box{
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:20px;
+  white-space:pre-line;
+  line-height:1.75;
+  margin-top:16px;
+}
+.rule-title{
+  font-size:25px;
+  line-height:1.3;
+  font-weight:800;
+}
+.rule-number{
+  color:var(--primary);
+  font-weight:800;
+  font-size:15px;
+}
+.form-label{
+  display:block;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+.form-control,.form-select{
+  min-height:54px;
+  border-radius:12px;
+  border-color:#cfd5df;
+  font-size:17px;
+  padding:12px 14px;
+}
+.form-control:focus,.form-select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 .2rem rgba(23,92,211,.12);
+}
+textarea.form-control{min-height:100px}
+.form-check-box{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  cursor:pointer;
+}
+.form-check-box input{
+  flex:0 0 auto;
+  width:25px;
+  height:25px;
+  margin-top:2px;
+}
+.choice-label{
+  font-size:17px;
+  font-weight:700;
+}
+.btn{
+  min-height:54px;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:750;
+  padding:12px 18px;
+}
+.btn-primary{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+.btn-primary:hover,.btn-primary:focus{
+  background:var(--primary-dark);
+  border-color:var(--primary-dark);
+}
+.btn-outline-primary{
+  border-width:2px;
+}
+.choice-btn{
+  min-height:58px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.choice-btn i{font-size:22px}
+.choice-btn.active-choice{
+  background:#eff8ff;
+  border-color:var(--primary);
+  color:var(--primary);
+}
+.action-bar{
+  position:sticky;
+  bottom:0;
+  z-index:20;
+  margin:20px -20px -24px;
+  padding:12px 20px;
+  background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(8px);
+}
+.error{
+  color:var(--danger);
+  font-size:15px;
+  font-weight:650;
+  margin-top:10px;
+}
+.consent-time{
+  color:var(--success);
+  font-size:14px;
+  font-weight:700;
+  margin-top:9px;
+}
+.summary{
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+  white-space:pre-wrap;
+  line-height:1.65;
+}
+.accordion-button{
+  font-size:17px;
+  font-weight:750;
+}
+.accordion-body{
+  font-size:16px;
+}
+.badge-soft{
+  background:#eff8ff;
+  color:var(--primary);
+  font-size:14px;
+  padding:7px 10px;
+}
+.hidden{display:none!important}
+@media(max-width:576px){
+  body{font-size:17px}
+  .app-shell{padding:8px 8px 100px}
+  .app-header{padding:15px 16px 8px}
+  .content{padding:6px 16px 20px}
+  h1{font-size:26px}
+  h2{font-size:22px}
+  .rule-title{font-size:23px}
+  .big-number{font-size:26px}
+  .action-bar{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  .action-bar .btn{width:100%}
+}
+</style>
 </head>
 
 <body>
-    <div class="app-shell">
-        <div class="app-card">
-
-            <header class="app-header">
-                <div class="brand">
-                    <i class="bi bi-car-front-fill me-1"></i>
-                    PENDAFTARAN MITRA PENGEMUDI
-                </div>
-                <div class="mt-3" id="topProgressWrap">
-                    <div class="d-flex justify-content-between small fw-semibold mb-2">
-                        <span id="progressLabel">Selamat datang</span>
-                        <span id="progressPercent"></span>
-                    </div>
-                    <div class="progress">
-                        <div id="mainProgress" class="progress-bar" style="width:0%"></div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- WELCOME -->
-            <section id="welcome" class="step active">
-                <div class="content">
-                    <span class="badge badge-soft rounded-pill">Mulai di sini</span>
-                    <h1>Sebelum daftar, kita baca aturan penting dulu</h1>
-                    <p class="muted">
-                        Baca pelan-pelan. Tujuannya supaya aturan kerja sama jelas dari awal dan tidak ada salah paham.
-                    </p>
-
-                    <div class="warning-card mt-4">
-                        <div class="d-flex gap-3">
-                            <i class="bi bi-info-circle-fill fs-4"></i>
-                            <div>
-                                <strong>Caranya mudah.</strong><br>
-                                Kita baca 12 aturan, satu per satu. Setelah Anda menyatakan mengerti, baru kita isi data
-                                pendaftaran.
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>Gambaran singkat</h2>
-
-                    <div class="row g-3">
-                        <div class="col-12 col-sm-6">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
-                                <div class="fw-bold">Bayar harian</div>
-                                <div class="big-number">Rp160.000</div>
-                                <div class="muted">per hari</div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="bi bi-bullseye"></i></div>
-                                <div class="fw-bold">Syarat pendapatan</div>
-                                <div class="big-number">&gt; Rp500.000</div>
-                                <div class="muted">kotor per hari</div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
-                                <div class="fw-bold">Batas pembayaran</div>
-                                <div class="big-number">22.00</div>
-                                <div class="muted">WIB</div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                                <div class="fw-bold">Area utama</div>
-                                <div class="big-number">Jabodetabek</div>
-                                <div class="muted">sesuai aturan kerja sama</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-card mt-4">
-                        <strong>Catatan tempat tinggal:</strong>
-                        rumah sendiri menjadi prioritas. Rumah orang tua, keluarga, pasangan, atau kontrakan dapat masuk
-                        review. Kos tidak memenuhi kriteria onboarding.
-                    </div>
-
-                    <div class="action-bar">
-                        <button class="btn btn-primary w-100" onclick="startRules()">
-                            Mulai baca aturan
-                            <i class="bi bi-arrow-right ms-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- RULES -->
-            <section id="rules" class="step">
-                <div class="content">
-                    <div class="rule-number" id="ruleNumber"></div>
-                    <div class="d-flex justify-content-between align-items-end mt-1">
-                        <div class="rule-title" id="ruleTitle"></div>
-                    </div>
-
-                    <div class="d-flex justify-content-between small fw-semibold mt-3 mb-2">
-                        <span id="ruleCounter"></span>
-                        <span id="rulePercent"></span>
-                    </div>
-                    <div class="progress">
-                        <div id="ruleBar" class="progress-bar"></div>
-                    </div>
-
-                    <div class="rule-box" id="ruleText"></div>
-
-                    <div class="form-check-box mt-4" onclick="toggleRuleConsent()">
-                        <input id="ruleAgree" type="checkbox" onclick="event.stopPropagation()">
-                        <div class="choice-label">
-                            Saya sudah membaca dan mengerti aturan ini.
-                        </div>
-                    </div>
-
-                    <div id="ruleConsentTime" class="consent-time"></div>
-                    <div id="ruleError" class="error"></div>
-
-                    <div class="action-bar">
-                        <div class="d-flex flex-column flex-sm-row gap-2">
-                            <button class="btn btn-light border flex-fill" onclick="ruleBack()">
-                                <i class="bi bi-arrow-left me-1"></i> Kembali
-                            </button>
-                            <button id="ruleNext" class="btn btn-primary flex-fill" disabled onclick="ruleNext()">
-                                Saya mengerti & lanjut
-                                <i class="bi bi-arrow-right ms-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SCREENING -->
-            <section id="screening" class="step">
-                <div class="content">
-                    <span class="badge badge-soft rounded-pill">Langkah 2</span>
-                    <h1>Cek apakah Anda sesuai dengan kebutuhan kami</h1>
-                    <p class="muted">Jawab sesuai kondisi sebenarnya. Tidak perlu takut salah.</p>
-
-                    <div class="danger-card mt-4">
-                        <strong>⚠️ Syarat utama sebelum daftar</strong>
-                        <p class="mb-2 mt-2">
-                            Anda wajib sudah memiliki pendapatan kotor <strong>lebih dari Rp500.000 per hari</strong>.
-                        </p>
-                        <p class="mb-0">
-                            Pendapatan ini harus <strong>bisa dibuktikan</strong>. Kalau belum bisa membuktikannya,
-                            sebaiknya jangan melanjutkan pendaftaran.
-                        </p>
-                    </div>
-
-                    <h2>👤 Tentang Anda</h2>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="name">Nama lengkap *</label>
-                        <input id="name" class="form-control" placeholder="Contoh: Budi Santoso">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="phone">Nomor WhatsApp aktif *</label>
-                        <input id="phone" class="form-control" inputmode="tel" placeholder="Contoh: 08123456789">
-                    </div>
-
-                    <h2>📍 Tempat Tinggal</h2>
-
-                    <div class="mb-4">
-                        <label class="form-label">Anda tinggal di Tangerang Selatan? *</label>
-                        <div class="d-grid gap-2">
-                            <input class="btn-check" type="radio" name="isTangselChoice" id="isTangselYes" value="yes">
-                            <label class="btn btn-outline-primary choice-btn" for="isTangselYes">
-                                <i class="bi bi-check-circle"></i> Ya
-                            </label>
-
-                            <input class="btn-check" type="radio" name="isTangselChoice" id="isTangselNo" value="no">
-                            <label class="btn btn-outline-secondary choice-btn" for="isTangselNo">
-                                <i class="bi bi-x-circle"></i> Tidak
-                            </label>
-                        </div>
-                        <select id="isTangsel" class="d-none">
-                            <option value=""></option>
-                            <option value="yes">Ya</option>
-                            <option value="no">Tidak</option>
-                        </select>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-12 col-sm-4">
-                            <label class="form-label" for="kelurahan">Kelurahan *</label>
-                            <input id="kelurahan" class="form-control" placeholder="Contoh: Ciputat">
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label class="form-label" for="kecamatan">Kecamatan *</label>
-                            <input id="kecamatan" class="form-control" placeholder="Contoh: Ciputat Timur">
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label class="form-label" for="kota">Kota/Kabupaten *</label>
-                            <input id="kota" class="form-control" placeholder="Contoh: Tangerang Selatan">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 mt-4">
-                        <label class="form-label" for="homeStatus">Rumah yang Anda tempati sekarang milik siapa?
-                            *</label>
-                        <select id="homeStatus" class="form-select">
-                            <option value="">Pilih jawaban</option>
-                            <option value="own">Rumah saya sendiri</option>
-                            <option value="parent">Rumah orang tua</option>
-                            <option value="family">Rumah keluarga</option>
-                            <option value="spouse">Rumah pasangan</option>
-                            <option value="rent">Kontrak / sewa</option>
-                            <option value="boarding">Kos</option>
-                            <option value="other">Lainnya</option>
-                        </select>
-                    </div>
-
-                    <div id="homeNotice" class="info-card">
-                        Rumah sendiri menjadi prioritas. Rumah keluarga/orang tua/pasangan dapat masuk review. Kos tidak
-                        memenuhi kriteria onboarding.
-                    </div>
-
-                    <div class="mb-4 mt-4">
-                        <label class="form-label" for="lotte">Rumah Anda dekat dengan Lotte Ciputat? *</label>
-                        <select id="lotte" class="form-select">
-                            <option value="">Pilih jawaban</option>
-                            <option>≤ 5 menit</option>
-                            <option>5–10 menit</option>
-                            <option>10–20 menit</option>
-                            <option>> 20 menit</option>
-                            <option>Tidak tahu</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="landmark">Rumah Anda dekat mana? *</label>
-                        <input id="landmark" class="form-control" placeholder="Contoh: dekat Lotte Ciputat">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="maps">Link Google Maps rumah *</label>
-                        <input id="maps" class="form-control" type="url" placeholder="Tempel link Google Maps">
-                    </div>
-
-                    <h2>💰 Syarat Pendapatan</h2>
-
-                    <div class="danger-card">
-                        <div class="muted">Syarat wajib</div>
-                        <div class="big-number">&gt; Rp500.000 / hari</div>
-                        <p class="mb-0 mt-2">
-                            Pendapatan kotor Anda harus lebih dari Rp500.000 per hari dan harus bisa dibuktikan.
-                        </p>
-                    </div>
-
-                    <div class="info-card mt-3">
-                        <strong>Contoh yang bisa disiapkan sebagai bukti:</strong>
-                        <ul class="mb-0 mt-2 ps-3">
-                            <li>riwayat pendapatan dari aplikasi;</li>
-                            <li>rekap pendapatan harian;</li>
-                            <li>mutasi atau bukti transaksi yang relevan; atau</li>
-                            <li>bukti lain yang dapat diverifikasi.</li>
-                        </ul>
-                    </div>
-
-                    <div class="mb-4 mt-4">
-                        <label class="form-label">Apakah pendapatan kotor Anda saat ini lebih dari Rp500.000 per hari
-                            dan bisa dibuktikan? *</label>
-                        <div class="d-grid gap-2">
-                            <input class="btn-check" type="radio" name="incomeChoice" id="incomeYes" value="yes">
-                            <label class="btn btn-outline-primary choice-btn" for="incomeYes">
-                                <i class="bi bi-check-circle"></i> Ya, saya bisa membuktikannya
-                            </label>
-
-                            <input class="btn-check" type="radio" name="incomeChoice" id="incomeNo" value="no">
-                            <label class="btn btn-outline-secondary choice-btn" for="incomeNo">
-                                <i class="bi bi-x-circle"></i> Tidak, saya belum bisa membuktikannya
-                            </label>
-                        </div>
-                        <select id="income" class="d-none">
-                            <option value=""></option>
-                            <option value="yes">Ya, bisa dibuktikan</option>
-                            <option value="no">Tidak bisa dibuktikan</option>
-                        </select>
-                    </div>
-
-                    <div class="calc-card mb-4">
-                        <strong>Contoh setelah syarat pendapatan terpenuhi</strong>
-                        <div class="row mt-2">
-                            <div class="col-7">Pendapatan kotor</div>
-                            <div class="col-5 text-end fw-bold">&gt; Rp500.000</div>
-                            <div class="col-7">Pembayaran kendaraan</div>
-                            <div class="col-5 text-end fw-bold">- Rp160.000</div>
-                            <div class="col-12">
-                                <hr class="my-2">
-                            </div>
-                            <div class="col-7 fw-bold">Sisa sebelum biaya lain</div>
-                            <div class="col-5 text-end fw-bold">&gt; Rp340.000</div>
-                        </div>
-                        <div class="small muted mt-2">
-                            Belum termasuk BBM, tol, parkir, komisi aplikasi, makan, dan biaya lainnya.
-                        </div>
-                    </div>
-
-                    <h2>🚗 Kesiapan Kerja</h2>
-
-                    <div class="row g-3">
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="hours">Biasanya mulai kerja jam berapa? *</label>
-                            <input id="hours" class="form-control" placeholder="Contoh: 06.00–18.00">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="days">Bisa bekerja berapa hari dalam seminggu? *</label>
-                            <select id="days" class="form-select">
-                                <option value="">Pilih</option>
-                                <option>3–4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="experience">Sudah berapa lama menjadi driver? *</label>
-                            <select id="experience" class="form-select">
-                                <option value="">Pilih</option>
-                                <option>Belum pernah</option>
-                                <option>&lt; 6 bulan</option>
-                                <option>6–12 bulan</option>
-                                <option>1–3 tahun</option>
-                                <option>&gt; 3 tahun</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="platform">Biasanya menggunakan aplikasi apa? *</label>
-                            <input id="platform" class="form-control" placeholder="Grab / Gojek / Maxim / lainnya">
-                        </div>
-                    </div>
-
-                    <div class="row g-3 mt-1">
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="pay">Sanggup bayar Rp160.000 setiap hari? *</label>
-                            <select id="pay" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="deadline">Sanggup bayar maksimal pukul 22.00? *</label>
-                            <select id="deadline" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="weekly">Sanggup pemeriksaan mobil setiap minggu? *</label>
-                            <select id="weekly" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="maintenance">Sanggup mengikuti jadwal perawatan? *</label>
-                            <select id="maintenance" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="locationConsent">Sanggup berbagi lokasi saat bekerja?
-                                *</label>
-                            <select id="locationConsent" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label" for="area">Sanggup mengikuti aturan area penggunaan? *</label>
-                            <select id="area" class="form-select">
-                                <option value="">Pilih</option>
-                                <option value="yes">Ya</option>
-                                <option value="no">Tidak</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="screenError" class="error"></div>
-
-                    <div class="action-bar">
-                        <div class="d-flex flex-column flex-sm-row gap-2">
-                            <button class="btn btn-light border flex-fill" onclick="go('rules')">
-                                <i class="bi bi-arrow-left me-1"></i> Kembali
-                            </button>
-                            <button class="btn btn-primary flex-fill" onclick="screenNext()">
-                                Lanjut <i class="bi bi-arrow-right ms-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- DETAILS -->
-            <section id="details" class="step">
-                <div class="content">
-                    <span class="badge badge-soft rounded-pill">Langkah 3</span>
-                    <h1>Lengkapi data Anda</h1>
-                    <p class="muted">Isi pelan-pelan. Data ini membantu admin memproses pendaftaran tanpa perlu bertanya
-                        ulang.</p>
-
-                    <h2>👤 Identitas</h2>
-                    <div class="row g-3">
-                        <div class="col-12 col-sm-6"><label class="form-label" for="ktp">Nomor KTP *</label><input
-                                id="ktp" class="form-control" inputmode="numeric"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="nickname">Nama panggilan
-                                *</label><input id="nickname" class="form-control"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="birthPlace">Tempat lahir
-                                *</label><input id="birthPlace" class="form-control"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="birthDate">Tanggal lahir
-                                *</label><input id="birthDate" class="form-control" type="date"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="marital">Status pernikahan
-                                *</label><select id="marital" class="form-select">
-                                <option value="">Pilih</option>
-                                <option>Belum menikah</option>
-                                <option>Menikah</option>
-                                <option>Cerai</option>
-                            </select></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="stayDuration">Sudah berapa lama
-                                tinggal di alamat ini? *</label><input id="stayDuration" class="form-control"
-                                placeholder="Contoh: 5 tahun"></div>
-                    </div>
-
-                    <h2>🏠 Alamat Rumah</h2>
-                    <div class="mb-4">
-                        <label class="form-label" for="address">Alamat rumah lengkap *</label>
-                        <textarea id="address" class="form-control" rows="3"
-                            placeholder="Jalan, nomor rumah, RT/RW, kompleks/perumahan, dll."></textarea>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-6"><label class="form-label" for="rt">RT *</label><input id="rt"
-                                class="form-control"></div>
-                        <div class="col-6"><label class="form-label" for="rw">RW *</label><input id="rw"
-                                class="form-control"></div>
-                        <div class="col-12"><label class="form-label" for="postcode">Kode pos *</label><input
-                                id="postcode" class="form-control" inputmode="numeric"></div>
-                        <div class="col-12"><label class="form-label" for="homeOwner">Nama pemilik rumah jika bukan
-                                milik sendiri</label><input id="homeOwner" class="form-control"></div>
-                        <div class="col-12"><label class="form-label" for="homeRelation">Hubungan Anda dengan pemilik
-                                rumah</label><input id="homeRelation" class="form-control"></div>
-                        <div class="col-12"><label class="form-label" for="landmark2">Rumah Anda dekat mana?
-                                *</label><input id="landmark2" class="form-control"
-                                placeholder="Contoh: dekat Lotte Ciputat"></div>
-                        <div class="col-12"><label class="form-label" for="maps2">Link Google Maps rumah *</label><input
-                                id="maps2" class="form-control" type="url" placeholder="Tempel link Google Maps"></div>
-                    </div>
-
-                    <h2>👨‍👩‍👧 Keluarga & Kontak Darurat</h2>
-                    <div class="row g-3">
-                        <div class="col-12 col-sm-6"><label class="form-label" for="mother">Nama ibu *</label><input
-                                id="mother" class="form-control"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="motherPhone">Nomor WhatsApp ibu
-                                *</label><input id="motherPhone" class="form-control" inputmode="tel"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="family">Nama pasangan /
-                                keluarga</label><input id="family" class="form-control"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="familyPhone">Nomor WhatsApp pasangan
-                                / keluarga</label><input id="familyPhone" class="form-control" inputmode="tel"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="emergency">Nama kontak darurat
-                                *</label><input id="emergency" class="form-control"></div>
-                        <div class="col-12 col-sm-6"><label class="form-label" for="emergencyPhone">Nomor kontak darurat
-                                *</label><input id="emergencyPhone" class="form-control" inputmode="tel"></div>
-                    </div>
-
-                    <h2>🚗 Riwayat Kendaraan</h2>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="arrears">Pernah punya tunggakan sewa kendaraan? *</label>
-                        <select id="arrears" class="form-select">
-                            <option value="">Pilih</option>
-                            <option>Tidak</option>
-                            <option>Ya</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="arrearsNote">Kalau pernah, ceritakan singkat</label>
-                        <textarea id="arrearsNote" class="form-control" rows="2"></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="repo">Pernah kendaraan ditarik/dikembalikan karena masalah
-                            pembayaran? *</label>
-                        <select id="repo" class="form-select">
-                            <option value="">Pilih</option>
-                            <option>Tidak</option>
-                            <option>Ya</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="repoNote">Kalau pernah, ceritakan singkat</label>
-                        <textarea id="repoNote" class="form-control" rows="2"></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label" for="ownCar">Apakah Anda punya kendaraan pribadi? *</label>
-                        <select id="ownCar" class="form-select">
-                            <option value="">Pilih</option>
-                            <option>Ya</option>
-                            <option>Tidak</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="selfUse">Kendaraan akan digunakan sendiri? *</label>
-                        <select id="selfUse" class="form-select">
-                            <option value="">Pilih</option>
-                            <option>Ya</option>
-                            <option>Tidak</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="otherUser">Kalau tidak, siapa yang akan menggunakan?</label>
-                        <input id="otherUser" class="form-control">
-                    </div>
-
-                    <h2>📄 Dokumen</h2>
-                    <div class="info-card">
-                        <strong>Siapkan dokumen berikut:</strong>
-                        <ul class="mb-0 mt-2">
-                            <li>KTP calon mitra</li>
-                            <li>KTP ibu</li>
-                            <li>KTP anak/anggota keluarga jika diperlukan</li>
-                            <li>KK</li>
-                        </ul>
-                    </div>
-
-                    <h2>✅ Sebelum Dikirim</h2>
-                    <p class="muted">Pastikan Anda sudah memahami hal-hal berikut.</p>
-
-                    <div class="d-grid gap-2">
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Data yang saya isi benar.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya memahami pembayaran Rp160.000 per hari dan batas pembayaran
-                                pukul 22.00.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya menyatakan pendapatan kotor saya lebih dari Rp500.000 per hari
-                                dan saya dapat menunjukkan buktinya.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya memahami kewajiban pemeriksaan dan perawatan
-                                mobil.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya bersedia berbagi lokasi saat kendaraan digunakan
-                                bekerja.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya memahami area penggunaan kendaraan.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya sudah membaca dan menyetujui seluruh aturan.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya memberikan persetujuan penggunaan data untuk pendaftaran,
-                                verifikasi, komunikasi, dan administrasi kerja sama.</span></label>
-                        <label class="form-check-box"><input class="final" type="checkbox"><span
-                                class="choice-label">Saya bersedia dihubungi melalui WhatsApp terkait proses
-                                pendaftaran.</span></label>
-                    </div>
-
-                    <div id="detailError" class="error"></div>
-
-                    <div class="action-bar">
-                        <div class="d-flex flex-column flex-sm-row gap-2">
-                            <button class="btn btn-light border flex-fill" onclick="go('screening')">
-                                <i class="bi bi-arrow-left me-1"></i> Kembali
-                            </button>
-                            <button class="btn btn-primary flex-fill" onclick="review()">
-                                Cek data <i class="bi bi-arrow-right ms-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- REVIEW -->
-            <section id="review" class="step">
-                <div class="content">
-                    <span class="badge badge-soft rounded-pill">Langkah 4</span>
-                    <h1>Cek Data Anda</h1>
-                    <p class="muted">Pastikan data diri, alamat, Google Maps, dan jawaban pendapatan sudah benar.</p>
-
-                    <div class="success-card mb-4">
-                        <i class="bi bi-check-circle-fill me-2"></i>
-                        Semua bagian yang wajib sudah diisi. Silakan periksa sekali lagi.
-                    </div>
-
-                    <div class="accordion" id="reviewAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#reviewSummary">
-                                    Ringkasan pendaftaran
-                                </button>
-                            </h2>
-                            <div id="reviewSummary" class="accordion-collapse collapse show"
-                                data-bs-parent="#reviewAccordion">
-                                <div class="accordion-body">
-                                    <div id="summary" class="summary"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-bar">
-                        <div class="d-flex flex-column flex-sm-row gap-2">
-                            <button class="btn btn-light border flex-fill" onclick="go('details')">
-                                <i class="bi bi-pencil me-1"></i> Perbaiki data
-                            </button>
-                            <button class="btn btn-primary flex-fill" onclick="submitFinal()">
-                                <i class="bi bi-send me-1"></i> Data sudah benar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- DONE -->
-            <section id="done" class="step">
-                <div class="content">
-                    <div class="text-center py-3">
-                        <div class="display-3 text-success"><i class="bi bi-check-circle-fill"></i></div>
-                        <h1 class="mt-3">Data sudah siap!</h1>
-                        <p class="muted">Pesan untuk admin sudah dibuat. Selanjutnya kirim melalui WhatsApp.</p>
-                    </div>
-
-                    <div class="success-card mb-4">
-                        <strong>Hasil awal: SYARAT TERPENUHI / REVIEW</strong><br>
-                        Admin akan memeriksa data calon mitra.
-                    </div>
-
-                    <h2>📱 Pesan ke Admin</h2>
-                    <textarea id="waMessage" class="form-control" rows="16" readonly></textarea>
-
-                    <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-light border" onclick="copyWA()">
-                            <i class="bi bi-copy me-2"></i> Salin pesan
-                        </button>
-                        <a id="waLink" class="btn btn-success" target="_blank" rel="noopener">
-                            <i class="bi bi-whatsapp me-2"></i> Buka WhatsApp Admin
-                        </a>
-                    </div>
-
-                    <p class="muted small mt-3">
-                        Nomor admin: 087720847415. WhatsApp akan membuka chat dengan pesan yang sudah terisi. Pengiriman
-                        final dilakukan oleh calon mitra/admin.
-                    </p>
-                </div>
-            </section>
-
-            <!-- BLOCKED -->
-            <section id="blocked" class="step">
-                <div class="content">
-                    <div class="text-center py-3">
-                        <div class="display-3 text-danger"><i class="bi bi-exclamation-circle-fill"></i></div>
-                        <h1 class="mt-3">Pendaftaran belum bisa dilanjutkan</h1>
-                    </div>
-
-                    <div class="danger-card">
-                        <div id="blockedText"></div>
-                    </div>
-
-                    <p class="muted mt-4">
-                        Jika kondisi Anda berubah di kemudian hari, Anda dapat mencoba kembali sesuai ketentuan yang
-                        berlaku.
-                    </p>
-
-                    <button class="btn btn-light border w-100 mt-3" onclick="go('welcome')">
-                        <i class="bi bi-arrow-left me-2"></i> Kembali ke awal
-                    </button>
-                </div>
-            </section>
-
+<div class="app-shell">
+  <div class="app-card">
+
+    <header class="app-header">
+      <div class="brand">
+        <i class="bi bi-car-front-fill me-1"></i>
+        PENDAFTARAN MITRA PENGEMUDI
+      </div>
+      <div class="mt-3" id="topProgressWrap">
+        <div class="d-flex justify-content-between small fw-semibold mb-2">
+          <span id="progressLabel">Selamat datang</span>
+          <span id="progressPercent"></span>
         </div>
-    </div>
+        <div class="progress">
+          <div id="mainProgress" class="progress-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </header>
 
-    <script>
-        const rules = [
-            {
-                no: "01", title: "SEWA Rp160.000/HARI — SKEMA KEPEMILIKAN 5 TAHUN", text: `Rp160.000 per hari adalah pembayaran dalam skema kepemilikan selama masa kerja sama 5 tahun sesuai perjanjian.
+    <!-- WELCOME -->
+    <section id="welcome" class="step active">
+      <div class="content">
+        <span class="badge badge-soft rounded-pill">Mulai di sini</span>
+        <h1>Sebelum daftar, kita baca aturan penting dulu</h1>
+        <p class="muted">
+          Baca pelan-pelan. Tujuannya supaya aturan kerja sama jelas dari awal dan tidak ada salah paham.
+        </p>
+
+        <div class="warning-card mt-4">
+          <div class="d-flex gap-3">
+            <i class="bi bi-info-circle-fill fs-4"></i>
+            <div>
+              <strong>Caranya mudah.</strong><br>
+              Kita baca 12 aturan, satu per satu. Setelah Anda menyatakan mengerti, baru kita isi data pendaftaran.
+            </div>
+          </div>
+        </div>
+
+        <h2>Gambaran singkat</h2>
+
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
+              <div class="fw-bold">Bayar harian</div>
+              <div class="big-number">Rp160.000</div>
+              <div class="muted">per hari</div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="bi bi-bullseye"></i></div>
+              <div class="fw-bold">Syarat pendapatan</div>
+              <div class="big-number">&gt; Rp500.000</div>
+              <div class="muted">kotor per hari</div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
+              <div class="fw-bold">Batas pembayaran</div>
+              <div class="big-number">22.00</div>
+              <div class="muted">WIB</div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="bi bi-geo-alt-fill"></i></div>
+              <div class="fw-bold">Area utama</div>
+              <div class="big-number">Jabodetabek</div>
+              <div class="muted">sesuai aturan kerja sama</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card mt-4">
+          <strong>Catatan tempat tinggal:</strong>
+          rumah sendiri menjadi prioritas. Rumah orang tua, keluarga, pasangan, atau kontrakan dapat masuk review. Kos tidak memenuhi kriteria onboarding.
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-primary w-100" onclick="startRules()">
+            Mulai baca aturan
+            <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section id="rules" class="step">
+      <div class="content">
+        <div class="rule-number" id="ruleNumber"></div>
+        <div class="d-flex justify-content-between align-items-end mt-1">
+          <div class="rule-title" id="ruleTitle"></div>
+        </div>
+
+        <div class="d-flex justify-content-between small fw-semibold mt-3 mb-2">
+          <span id="ruleCounter"></span>
+          <span id="rulePercent"></span>
+        </div>
+        <div class="progress">
+          <div id="ruleBar" class="progress-bar"></div>
+        </div>
+
+        <div class="rule-box" id="ruleText"></div>
+
+        <div class="form-check-box mt-4" onclick="toggleRuleConsent()">
+          <input id="ruleAgree" type="checkbox" onclick="event.stopPropagation()">
+          <div class="choice-label">
+            Saya sudah membaca dan mengerti aturan ini.
+          </div>
+        </div>
+
+        <div id="ruleConsentTime" class="consent-time"></div>
+        <div id="ruleError" class="error"></div>
+
+        <div class="action-bar">
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <button class="btn btn-light border flex-fill" onclick="ruleBack()">
+              <i class="bi bi-arrow-left me-1"></i> Kembali
+            </button>
+            <button id="ruleNext" class="btn btn-primary flex-fill" disabled onclick="ruleNext()">
+              Saya mengerti & lanjut
+              <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENING -->
+    <section id="screening" class="step">
+      <div class="content">
+        <span class="badge badge-soft rounded-pill">Langkah 2</span>
+        <h1>Cek apakah Anda sesuai dengan kebutuhan kami</h1>
+        <p class="muted">Jawab sesuai kondisi sebenarnya. Tidak perlu takut salah.</p>
+
+        <div class="danger-card mt-4">
+          <strong>⚠️ Syarat utama sebelum daftar</strong>
+          <p class="mb-2 mt-2">
+            Anda wajib sudah memiliki pendapatan kotor <strong>lebih dari Rp500.000 per hari</strong>.
+          </p>
+          <p class="mb-0">
+            Pendapatan ini harus <strong>bisa dibuktikan</strong>. Kalau belum bisa membuktikannya,
+            sebaiknya jangan melanjutkan pendaftaran.
+          </p>
+        </div>
+
+        <h2>👤 Tentang Anda</h2>
+
+        <div class="mb-4">
+          <label class="form-label" for="name">Nama lengkap *</label>
+          <input id="name" class="form-control" placeholder="Contoh: Budi Santoso">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="phone">Nomor WhatsApp aktif *</label>
+          <input id="phone" class="form-control" inputmode="tel" placeholder="Contoh: 08123456789">
+        </div>
+
+        <h2>📍 Tempat Tinggal</h2>
+
+        <div class="mb-4">
+          <label class="form-label">Anda tinggal di Tangerang Selatan? *</label>
+          <div class="d-grid gap-2">
+            <input class="btn-check" type="radio" name="isTangselChoice" id="isTangselYes" value="yes">
+            <label class="btn btn-outline-primary choice-btn" for="isTangselYes">
+              <i class="bi bi-check-circle"></i> Ya
+            </label>
+
+            <input class="btn-check" type="radio" name="isTangselChoice" id="isTangselNo" value="no">
+            <label class="btn btn-outline-secondary choice-btn" for="isTangselNo">
+              <i class="bi bi-x-circle"></i> Tidak
+            </label>
+          </div>
+          <select id="isTangsel" class="d-none">
+            <option value=""></option>
+            <option value="yes">Ya</option>
+            <option value="no">Tidak</option>
+          </select>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-sm-4">
+            <label class="form-label" for="kelurahan">Kelurahan *</label>
+            <input id="kelurahan" class="form-control" placeholder="Contoh: Ciputat">
+          </div>
+          <div class="col-12 col-sm-4">
+            <label class="form-label" for="kecamatan">Kecamatan *</label>
+            <input id="kecamatan" class="form-control" placeholder="Contoh: Ciputat Timur">
+          </div>
+          <div class="col-12 col-sm-4">
+            <label class="form-label" for="kota">Kota/Kabupaten *</label>
+            <input id="kota" class="form-control" placeholder="Contoh: Tangerang Selatan">
+          </div>
+        </div>
+
+        <div class="mb-4 mt-4">
+          <label class="form-label" for="homeStatus">Rumah yang Anda tempati sekarang milik siapa? *</label>
+          <select id="homeStatus" class="form-select">
+            <option value="">Pilih jawaban</option>
+            <option value="own">Rumah saya sendiri</option>
+            <option value="parent">Rumah orang tua</option>
+            <option value="family">Rumah keluarga</option>
+            <option value="spouse">Rumah pasangan</option>
+            <option value="rent">Kontrak / sewa</option>
+            <option value="boarding">Kos</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+
+        <div id="homeNotice" class="info-card">
+          Rumah sendiri menjadi prioritas. Rumah keluarga/orang tua/pasangan dapat masuk review. Kos tidak memenuhi kriteria onboarding.
+        </div>
+
+        <div class="mb-4 mt-4">
+          <label class="form-label" for="lotte">Rumah Anda dekat dengan Lotte Ciputat? *</label>
+          <select id="lotte" class="form-select">
+            <option value="">Pilih jawaban</option>
+            <option>≤ 5 menit</option>
+            <option>5–10 menit</option>
+            <option>10–20 menit</option>
+            <option>> 20 menit</option>
+            <option>Tidak tahu</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="landmark">Rumah Anda dekat mana? *</label>
+          <input id="landmark" class="form-control" placeholder="Contoh: dekat Lotte Ciputat">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="maps">Link Google Maps rumah *</label>
+          <input id="maps" class="form-control" type="url" placeholder="Tempel link Google Maps">
+        </div>
+
+        <h2>💰 Syarat Pendapatan</h2>
+
+        <div class="danger-card">
+          <div class="muted">Syarat wajib</div>
+          <div class="big-number">&gt; Rp500.000 / hari</div>
+          <p class="mb-0 mt-2">
+            Pendapatan kotor Anda harus lebih dari Rp500.000 per hari dan harus bisa dibuktikan.
+          </p>
+        </div>
+
+        <div class="info-card mt-3">
+          <strong>Contoh yang bisa disiapkan sebagai bukti:</strong>
+          <ul class="mb-0 mt-2 ps-3">
+            <li>riwayat pendapatan dari aplikasi;</li>
+            <li>rekap pendapatan harian;</li>
+            <li>mutasi atau bukti transaksi yang relevan; atau</li>
+            <li>bukti lain yang dapat diverifikasi.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 mt-4">
+          <label class="form-label">Apakah pendapatan kotor Anda saat ini lebih dari Rp500.000 per hari dan bisa dibuktikan? *</label>
+          <div class="d-grid gap-2">
+            <input class="btn-check" type="radio" name="incomeChoice" id="incomeYes" value="yes">
+            <label class="btn btn-outline-primary choice-btn" for="incomeYes">
+              <i class="bi bi-check-circle"></i> Ya, saya bisa membuktikannya
+            </label>
+
+            <input class="btn-check" type="radio" name="incomeChoice" id="incomeNo" value="no">
+            <label class="btn btn-outline-secondary choice-btn" for="incomeNo">
+              <i class="bi bi-x-circle"></i> Tidak, saya belum bisa membuktikannya
+            </label>
+          </div>
+          <select id="income" class="d-none">
+            <option value=""></option>
+            <option value="yes">Ya, bisa dibuktikan</option>
+            <option value="no">Tidak bisa dibuktikan</option>
+          </select>
+        </div>
+
+        <div class="calc-card mb-4">
+          <strong>Contoh setelah syarat pendapatan terpenuhi</strong>
+          <div class="row mt-2">
+            <div class="col-7">Pendapatan kotor</div>
+            <div class="col-5 text-end fw-bold">&gt; Rp500.000</div>
+            <div class="col-7">Pembayaran kendaraan</div>
+            <div class="col-5 text-end fw-bold">- Rp160.000</div>
+            <div class="col-12"><hr class="my-2"></div>
+            <div class="col-7 fw-bold">Sisa sebelum biaya lain</div>
+            <div class="col-5 text-end fw-bold">&gt; Rp340.000</div>
+          </div>
+          <div class="small muted mt-2">
+            Belum termasuk BBM, tol, parkir, komisi aplikasi, makan, dan biaya lainnya.
+          </div>
+        </div>
+
+        <h2>🚗 Kesiapan Kerja</h2>
+
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="hours">Biasanya mulai kerja jam berapa? *</label>
+            <input id="hours" class="form-control" placeholder="Contoh: 06.00–18.00">
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="days">Bisa bekerja berapa hari dalam seminggu? *</label>
+            <select id="days" class="form-select">
+              <option value="">Pilih</option><option>3–4</option><option>5</option><option>6</option><option>7</option>
+            </select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="experience">Sudah berapa lama menjadi driver? *</label>
+            <select id="experience" class="form-select">
+              <option value="">Pilih</option>
+              <option>Belum pernah</option>
+              <option>&lt; 6 bulan</option>
+              <option>6–12 bulan</option>
+              <option>1–3 tahun</option>
+              <option>&gt; 3 tahun</option>
+            </select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="platform">Biasanya menggunakan aplikasi apa? *</label>
+            <input id="platform" class="form-control" placeholder="Grab / Gojek / Maxim / lainnya">
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="pay">Sanggup bayar Rp160.000 setiap hari? *</label>
+            <select id="pay" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="deadline">Sanggup bayar maksimal pukul 22.00? *</label>
+            <select id="deadline" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="weekly">Sanggup pemeriksaan mobil setiap minggu? *</label>
+            <select id="weekly" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="maintenance">Sanggup mengikuti jadwal perawatan? *</label>
+            <select id="maintenance" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="locationConsent">Sanggup berbagi lokasi saat bekerja? *</label>
+            <select id="locationConsent" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="area">Sanggup mengikuti aturan area penggunaan? *</label>
+            <select id="area" class="form-select"><option value="">Pilih</option><option value="yes">Ya</option><option value="no">Tidak</option></select>
+          </div>
+        </div>
+
+        <div id="screenError" class="error"></div>
+
+        <div class="action-bar">
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <button class="btn btn-light border flex-fill" onclick="go('rules')">
+              <i class="bi bi-arrow-left me-1"></i> Kembali
+            </button>
+            <button class="btn btn-primary flex-fill" onclick="screenNext()">
+              Lanjut <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="details" class="step">
+      <div class="content">
+        <span class="badge badge-soft rounded-pill">Langkah 3</span>
+        <h1>Lengkapi data Anda</h1>
+        <p class="muted">Isi pelan-pelan. Data ini membantu admin memproses pendaftaran tanpa perlu bertanya ulang.</p>
+
+        <h2>👤 Identitas</h2>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6"><label class="form-label" for="ktp">Nomor KTP *</label><input id="ktp" class="form-control" inputmode="numeric"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="nickname">Nama panggilan *</label><input id="nickname" class="form-control"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="birthPlace">Tempat lahir *</label><input id="birthPlace" class="form-control"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="birthDate">Tanggal lahir *</label><input id="birthDate" class="form-control" type="date"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="marital">Status pernikahan *</label><select id="marital" class="form-select"><option value="">Pilih</option><option>Belum menikah</option><option>Menikah</option><option>Cerai</option></select></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="stayDuration">Sudah berapa lama tinggal di alamat ini? *</label><input id="stayDuration" class="form-control" placeholder="Contoh: 5 tahun"></div>
+        </div>
+
+        <h2>🏠 Alamat Rumah</h2>
+        <div class="mb-4">
+          <label class="form-label" for="address">Alamat rumah lengkap *</label>
+          <textarea id="address" class="form-control" rows="3" placeholder="Jalan, nomor rumah, RT/RW, kompleks/perumahan, dll."></textarea>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-6"><label class="form-label" for="rt">RT *</label><input id="rt" class="form-control"></div>
+          <div class="col-6"><label class="form-label" for="rw">RW *</label><input id="rw" class="form-control"></div>
+          <div class="col-12"><label class="form-label" for="postcode">Kode pos *</label><input id="postcode" class="form-control" inputmode="numeric"></div>
+          <div class="col-12"><label class="form-label" for="homeOwner">Nama pemilik rumah jika bukan milik sendiri</label><input id="homeOwner" class="form-control"></div>
+          <div class="col-12"><label class="form-label" for="homeRelation">Hubungan Anda dengan pemilik rumah</label><input id="homeRelation" class="form-control"></div>
+          <div class="col-12"><label class="form-label" for="landmark2">Rumah Anda dekat mana? *</label><input id="landmark2" class="form-control" placeholder="Contoh: dekat Lotte Ciputat"></div>
+          <div class="col-12"><label class="form-label" for="maps2">Link Google Maps rumah *</label><input id="maps2" class="form-control" type="url" placeholder="Tempel link Google Maps"></div>
+        </div>
+
+        <h2>👨‍👩‍👧 Keluarga & Kontak Darurat</h2>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6"><label class="form-label" for="mother">Nama ibu *</label><input id="mother" class="form-control"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="motherPhone">Nomor WhatsApp ibu *</label><input id="motherPhone" class="form-control" inputmode="tel"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="family">Nama pasangan / keluarga</label><input id="family" class="form-control"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="familyPhone">Nomor WhatsApp pasangan / keluarga</label><input id="familyPhone" class="form-control" inputmode="tel"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="emergency">Nama kontak darurat *</label><input id="emergency" class="form-control"></div>
+          <div class="col-12 col-sm-6"><label class="form-label" for="emergencyPhone">Nomor kontak darurat *</label><input id="emergencyPhone" class="form-control" inputmode="tel"></div>
+        </div>
+
+        <h2>🚗 Riwayat Kendaraan</h2>
+
+        <div class="mb-4">
+          <label class="form-label" for="arrears">Pernah punya tunggakan sewa kendaraan? *</label>
+          <select id="arrears" class="form-select"><option value="">Pilih</option><option>Tidak</option><option>Ya</option></select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="arrearsNote">Kalau pernah, ceritakan singkat</label>
+          <textarea id="arrearsNote" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="repo">Pernah kendaraan ditarik/dikembalikan karena masalah pembayaran? *</label>
+          <select id="repo" class="form-select"><option value="">Pilih</option><option>Tidak</option><option>Ya</option></select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="repoNote">Kalau pernah, ceritakan singkat</label>
+          <textarea id="repoNote" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="ownCar">Apakah Anda punya kendaraan pribadi? *</label>
+          <select id="ownCar" class="form-select"><option value="">Pilih</option><option>Ya</option><option>Tidak</option></select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="selfUse">Kendaraan akan digunakan sendiri? *</label>
+          <select id="selfUse" class="form-select"><option value="">Pilih</option><option>Ya</option><option>Tidak</option></select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="otherUser">Kalau tidak, siapa yang akan menggunakan?</label>
+          <input id="otherUser" class="form-control">
+        </div>
+
+        <h2>📄 Dokumen</h2>
+        <div class="info-card">
+          <strong>Siapkan dokumen berikut:</strong>
+          <ul class="mb-0 mt-2">
+            <li>KTP calon mitra</li>
+            <li>KTP ibu</li>
+            <li>KTP anak/anggota keluarga jika diperlukan</li>
+            <li>KK</li>
+          </ul>
+        </div>
+
+        <h2>✅ Sebelum Dikirim</h2>
+        <p class="muted">Pastikan Anda sudah memahami hal-hal berikut.</p>
+
+        <div class="d-grid gap-2">
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Data yang saya isi benar.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya memahami pembayaran Rp160.000 per hari dan batas pembayaran pukul 22.00.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya menyatakan pendapatan kotor saya lebih dari Rp500.000 per hari dan saya dapat menunjukkan buktinya.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya memahami kewajiban pemeriksaan dan perawatan mobil.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya bersedia berbagi lokasi saat kendaraan digunakan bekerja.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya memahami area penggunaan kendaraan.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya sudah membaca dan menyetujui seluruh aturan.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya memberikan persetujuan penggunaan data untuk pendaftaran, verifikasi, komunikasi, dan administrasi kerja sama.</span></label>
+          <label class="form-check-box"><input class="final" type="checkbox"><span class="choice-label">Saya bersedia dihubungi melalui WhatsApp terkait proses pendaftaran.</span></label>
+        </div>
+
+        <div id="detailError" class="error"></div>
+
+        <div class="action-bar">
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <button class="btn btn-light border flex-fill" onclick="go('screening')">
+              <i class="bi bi-arrow-left me-1"></i> Kembali
+            </button>
+            <button class="btn btn-primary flex-fill" onclick="review()">
+              Cek data <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section id="review" class="step">
+      <div class="content">
+        <span class="badge badge-soft rounded-pill">Langkah 4</span>
+        <h1>Cek Data Anda</h1>
+        <p class="muted">Pastikan data diri, alamat, Google Maps, dan jawaban pendapatan sudah benar.</p>
+
+        <div class="success-card mb-4">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          Semua bagian yang wajib sudah diisi. Silakan periksa sekali lagi.
+        </div>
+
+        <div class="accordion" id="reviewAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#reviewSummary">
+                Ringkasan pendaftaran
+              </button>
+            </h2>
+            <div id="reviewSummary" class="accordion-collapse collapse show" data-bs-parent="#reviewAccordion">
+              <div class="accordion-body">
+                <div id="summary" class="summary"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <button class="btn btn-light border flex-fill" onclick="go('details')">
+              <i class="bi bi-pencil me-1"></i> Perbaiki data
+            </button>
+            <button class="btn btn-primary flex-fill" onclick="submitFinal()">
+              <i class="bi bi-send me-1"></i> Data sudah benar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONE -->
+    <section id="done" class="step">
+      <div class="content">
+        <div class="text-center py-3">
+          <div class="display-3 text-success"><i class="bi bi-check-circle-fill"></i></div>
+          <h1 class="mt-3">Data sudah siap!</h1>
+          <p class="muted">Pesan untuk admin sudah dibuat. Selanjutnya kirim melalui WhatsApp.</p>
+        </div>
+
+        <div class="success-card mb-4">
+          <strong>Hasil awal: SYARAT TERPENUHI / REVIEW</strong><br>
+          Admin akan memeriksa data calon mitra.
+        </div>
+
+        <h2>📱 Pesan ke Admin</h2>
+        <textarea id="waMessage" class="form-control" rows="16" readonly></textarea>
+
+        <div class="d-grid gap-2 mt-3">
+          <button class="btn btn-light border" onclick="copyWA()">
+            <i class="bi bi-copy me-2"></i> Salin pesan
+          </button>
+          <a id="waLink" class="btn btn-success" target="_blank" rel="noopener">
+            <i class="bi bi-whatsapp me-2"></i> Buka WhatsApp Admin
+          </a>
+        </div>
+
+        <p class="muted small mt-3">
+          Nomor admin: 087720847415. WhatsApp akan membuka chat dengan pesan yang sudah terisi. Pengiriman final dilakukan oleh calon mitra/admin.
+        </p>
+      </div>
+    </section>
+
+    <!-- BLOCKED -->
+    <section id="blocked" class="step">
+      <div class="content">
+        <div class="text-center py-3">
+          <div class="display-3 text-danger"><i class="bi bi-exclamation-circle-fill"></i></div>
+          <h1 class="mt-3">Pendaftaran belum bisa dilanjutkan</h1>
+        </div>
+
+        <div class="danger-card">
+          <div id="blockedText"></div>
+        </div>
+
+        <p class="muted mt-4">
+          Jika kondisi Anda berubah di kemudian hari, Anda dapat mencoba kembali sesuai ketentuan yang berlaku.
+        </p>
+
+        <button class="btn btn-light border w-100 mt-3" onclick="go('welcome')">
+          <i class="bi bi-arrow-left me-2"></i> Kembali ke awal
+        </button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+const rules=[
+{no:"01",title:"SEWA Rp160.000/HARI — SKEMA KEPEMILIKAN 5 TAHUN",text:`Rp160.000 per hari adalah pembayaran dalam skema kepemilikan selama masa kerja sama 5 tahun sesuai perjanjian.
 
 Yang perlu dipahami:
 • Pembayaran Rp160.000/hari merupakan kewajiban utama dalam skema kerja sama.
@@ -1090,14 +857,12 @@ Yang perlu dipahami:
 • Contoh: gross lebih dari Rp500.000 dikurangi pembayaran Rp160.000 = sisa lebih dari Rp340.000 sebelum BBM, tol, parkir, komisi aplikasi, makan, dan biaya operasional lain.
 
 Sebelum lanjut, pastikan Anda memahami bahwa kewajiban Rp160.000/hari melekat pada skema kerja sama 5 tahun.`},
-            {
-                no: "02", title: "PEMBAYARAN MAKSIMAL 22.00 WIB", text: `Pembayaran Rp160.000 wajib dibayarkan maksimal pukul 22.00 WIB sesuai ketentuan kerja sama.
+{no:"02",title:"PEMBAYARAN MAKSIMAL 22.00 WIB",text:`Pembayaran Rp160.000 wajib dibayarkan maksimal pukul 22.00 WIB sesuai ketentuan kerja sama.
 
 Mitra harus mengatur pendapatan dan saldo agar kewajiban pembayaran dapat dipenuhi tepat waktu.
 
 Jika sedang sakit, cuti, atau tidak bekerja, baca aturan izin pada poin berikutnya. Izin tidak otomatis menghapus kewajiban pembayaran; dampaknya adalah jumlah pembayaran menjadi kurang apabila hari tersebut tidak menghasilkan pemasukan.`},
-            {
-                no: "03", title: "SAKIT / CUTI DIPERBOLEHKAN, TETAPI PEMBAYARAN BISA KURANG", text: `Mitra boleh meminta izin karena sakit atau cuti. Namun izin bukan berarti kewajiban pembayaran otomatis dibebaskan.
+{no:"03",title:"SAKIT / CUTI DIPERBOLEHKAN, TETAPI PEMBAYARAN BISA KURANG",text:`Mitra boleh meminta izin karena sakit atau cuti. Namun izin bukan berarti kewajiban pembayaran otomatis dibebaskan.
 
 Jika mitra tidak bekerja karena sakit atau cuti, pendapatan pada hari tersebut bisa berkurang dan pembayaran kepada pemilik dapat menjadi kurang sesuai jumlah hari yang tidak digunakan/ketentuan kerja sama.
 
@@ -1108,14 +873,12 @@ Karena itu:
 • Kekurangan pembayaran tetap harus dibicarakan dan diselesaikan.
 
 Contoh: Anda izin 2 hari karena sakit. Anda tidak bekerja dan pendapatan turun. Kondisi tersebut harus dikomunikasikan kepada pemilik dan kekurangan pembayaran yang timbul tetap perlu diselesaikan sesuai kesepakatan.`},
-            {
-                no: "04", title: "KETERLAMBATAN & TUNGGAKAN", text: `Jika pembayaran tertunggak 2 hari berturut-turut tanpa penjelasan yang dapat diterima, pemilik dapat menghentikan penggunaan kendaraan dan meminta kendaraan dikembalikan.
+{no:"04",title:"KETERLAMBATAN & TUNGGAKAN",text:`Jika pembayaran tertunggak 2 hari berturut-turut tanpa penjelasan yang dapat diterima, pemilik dapat menghentikan penggunaan kendaraan dan meminta kendaraan dikembalikan.
 
 Kewajiban pembayaran yang sudah jatuh tempo tetap menjadi tanggung jawab mitra.
 
 Ada perbedaan antara izin yang dikomunikasikan dengan tunggakan tanpa komunikasi. Karena itu, jika ada masalah pembayaran, hubungi pemilik sebelum masalah menjadi tunggakan.`},
-            {
-                no: "05", title: "PEMERIKSAAN KENDARAAN MINIMAL 1X SEMINGGU", text: `Mitra wajib membawa kendaraan untuk pemeriksaan minimal satu kali setiap minggu.
+{no:"05",title:"PEMERIKSAAN KENDARAAN MINIMAL 1X SEMINGGU",text:`Mitra wajib membawa kendaraan untuk pemeriksaan minimal satu kali setiap minggu.
 
 Pemeriksaan dapat mencakup:
 • bodi dan eksterior
@@ -1129,28 +892,24 @@ Pemeriksaan dapat mencakup:
 • kebersihan
 
 Tujuannya memastikan kendaraan aman, terawat, dan kondisinya dapat dipantau bersama.`},
-            {
-                no: "06", title: "OLI — MAKSIMAL SETIAP 5.000 KM", text: `Oli wajib diperhatikan dan diganti maksimal setiap 5.000 km atau lebih cepat apabila kondisi kendaraan membutuhkan.
+{no:"06",title:"OLI — MAKSIMAL SETIAP 5.000 KM",text:`Oli wajib diperhatikan dan diganti maksimal setiap 5.000 km atau lebih cepat apabila kondisi kendaraan membutuhkan.
 
 Mitra wajib memberi tahu pemilik ketika kendaraan mendekati jadwal servis atau terdapat indikasi masalah.
 
 Maintenance yang sudah waktunya tidak boleh sengaja ditunda karena kendaraan sedang digunakan untuk mencari pendapatan.`},
-            {
-                no: "07", title: "BAN, KESELAMATAN, KEBERSIHAN & KONDISI MOBIL", text: `Mitra wajib menjaga kendaraan tetap aman, bersih, dan dalam kondisi baik.
+{no:"07",title:"BAN, KESELAMATAN, KEBERSIHAN & KONDISI MOBIL",text:`Mitra wajib menjaga kendaraan tetap aman, bersih, dan dalam kondisi baik.
 
 Perhatikan ban, rem, lampu, suspensi, cairan, interior, dan bodi kendaraan.
 
 Kerusakan, goresan, penyok, atau masalah yang timbul karena kelalaian penggunaan harus segera dilaporkan.
 
 Jangan menunggu kerusakan menjadi lebih besar atau membahayakan pengemudi dan penumpang.`},
-            {
-                no: "08", title: "SHARE LOCATION SAAT KENDARAAN DIGUNAKAN", text: `Selama kendaraan digunakan untuk bekerja, mitra bersedia membagikan lokasi kendaraan kepada pemilik sesuai mekanisme yang disepakati.
+{no:"08",title:"SHARE LOCATION SAAT KENDARAAN DIGUNAKAN",text:`Selama kendaraan digunakan untuk bekerja, mitra bersedia membagikan lokasi kendaraan kepada pemilik sesuai mekanisme yang disepakati.
 
 Tujuannya untuk keamanan kendaraan, monitoring operasional, dan membantu apabila terjadi keadaan darurat.
 
 Jika pemilik membutuhkan konfirmasi lokasi kendaraan, mitra wajib memberikan respons yang wajar.`},
-            {
-                no: "09", title: "AREA PENGGUNAAN — JABODETABEK SAJA", text: `Kendaraan pada dasarnya hanya boleh digunakan di wilayah Jabodetabek sesuai kerja sama.
+{no:"09",title:"AREA PENGGUNAAN — JABODETABEK SAJA",text:`Kendaraan pada dasarnya hanya boleh digunakan di wilayah Jabodetabek sesuai kerja sama.
 
 Jangan membawa kendaraan keluar Jabodetabek tanpa izin pemilik.
 
@@ -1163,8 +922,7 @@ Jika ada kebutuhan keluar Jabodetabek, mitra wajib:
 Izin harus diberikan sebelum kendaraan keluar wilayah. Keperluan pribadi, pekerjaan, mudik, perjalanan jauh, atau alasan lainnya tidak otomatis menjadi izin.
 
 Penggunaan kendaraan keluar Jabodetabek tanpa izin merupakan pelanggaran terhadap ketentuan penggunaan kendaraan.`},
-            {
-                no: "10", title: "KOMUNIKASI DENGAN PEMILIK", text: `Mitra wajib menjaga komunikasi dengan pemilik.
+{no:"10",title:"KOMUNIKASI DENGAN PEMILIK",text:`Mitra wajib menjaga komunikasi dengan pemilik.
 
 Segera komunikasikan:
 • sakit atau cuti
@@ -1178,274 +936,272 @@ Segera komunikasikan:
 • keadaan darurat
 
 Jangan menghilang ketika ada masalah. Komunikasi lebih awal memberi kesempatan pemilik dan mitra mencari penyelesaian.`},
-            {
-                no: "11", title: "PEMILIK DAPAT PAUSE / MENARIK KENDARAAN", text: `Pemilik dapat menghentikan sementara penggunaan kendaraan apabila kendaraan membutuhkan servis/perbaikan atau ada kebutuhan pribadi pemilik.
+{no:"11",title:"PEMILIK DAPAT PAUSE / MENARIK KENDARAAN",text:`Pemilik dapat menghentikan sementara penggunaan kendaraan apabila kendaraan membutuhkan servis/perbaikan atau ada kebutuhan pribadi pemilik.
 
 Selain itu, apabila kendaraan digunakan tidak sesuai ketentuan kerja sama — termasuk keluar Jabodetabek tanpa izin atau pelanggaran penggunaan lainnya — pemilik berhak meminta kendaraan dikembalikan dan/atau menarik kendaraan sesuai perjanjian.
 
 Artinya, kendaraan bukan bebas digunakan untuk keperluan apa pun. Penggunaan harus tetap mengikuti area, aturan, pembayaran, perawatan, dan ketentuan kerja sama.`},
-            {
-                no: "12", title: "PENGEMBALIAN KENDARAAN", text: `Jika kerja sama berakhir, terdapat pelanggaran yang menyebabkan kendaraan harus dikembalikan, atau pemilik meminta kendaraan kembali sesuai ketentuan perjanjian, mitra wajib mengembalikan kendaraan.
+{no:"12",title:"PENGEMBALIAN KENDARAAN",text:`Jika kerja sama berakhir, terdapat pelanggaran yang menyebabkan kendaraan harus dikembalikan, atau pemilik meminta kendaraan kembali sesuai ketentuan perjanjian, mitra wajib mengembalikan kendaraan.
 
 Kondisi kendaraan akan diperiksa saat pengembalian.
 
 Mitra wajib menjaga kendaraan sampai benar-benar dikembalikan dan menyelesaikan kewajiban pembayaran atau kewajiban lain yang masih ada sesuai perjanjian.`}
-        ];
-        let ri = 0, consents = [], times = [];
-        const stepIds = ["welcome", "rules", "screening", "details", "review", "done", "blocked"];
+];
+let ri=0,consents=[],times=[];
+const stepIds=["welcome","rules","screening","details","review","done","blocked"];
 
-        function updateProgress(id) {
-            const map = {
-                welcome: ["Selamat datang", 0],
-                rules: ["Langkah 1 dari 4", 25],
-                screening: ["Langkah 2 dari 4", 50],
-                details: ["Langkah 3 dari 4", 75],
-                review: ["Langkah 4 dari 4", 100],
-                done: ["Selesai", 100],
-                blocked: ["Pendaftaran", 0]
-            };
-            const [label, pct] = map[id] || ["", 0];
-            document.getElementById("progressLabel").textContent = label;
-            document.getElementById("progressPercent").textContent = pct ? pct + "%" : "";
-            document.getElementById("mainProgress").style.width = pct + "%";
-        }
+function updateProgress(id){
+  const map={
+    welcome:["Selamat datang",0],
+    rules:["Langkah 1 dari 4",25],
+    screening:["Langkah 2 dari 4",50],
+    details:["Langkah 3 dari 4",75],
+    review:["Langkah 4 dari 4",100],
+    done:["Selesai",100],
+    blocked:["Pendaftaran",0]
+  };
+  const [label,pct]=map[id]||["",0];
+  document.getElementById("progressLabel").textContent=label;
+  document.getElementById("progressPercent").textContent=pct ? pct+"%" : "";
+  document.getElementById("mainProgress").style.width=pct+"%";
+}
 
-        function go(id) {
-            stepIds.forEach(x => {
-                const el = document.getElementById(x);
-                if (el) el.classList.toggle("active", x === id);
-            });
-            updateProgress(id);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+function go(id){
+  stepIds.forEach(x=>{
+    const el=document.getElementById(x);
+    if(el) el.classList.toggle("active",x===id);
+  });
+  updateProgress(id);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 
-        function startRules() {
-            ri = 0;
-            go("rules");
-            renderRule();
-        }
+function startRules(){
+  ri=0;
+  go("rules");
+  renderRule();
+}
 
-        function renderRule() {
-            const r = rules[ri];
-            document.getElementById("ruleNumber").textContent = "ATURAN " + r.no;
-            document.getElementById("ruleTitle").textContent = r.title;
-            document.getElementById("ruleText").textContent = r.text;
-            document.getElementById("ruleCounter").textContent = "Aturan " + (ri + 1) + " dari " + rules.length;
-            const pct = ((ri + 1) / rules.length * 100);
-            document.getElementById("ruleBar").style.width = pct + "%";
-            document.getElementById("rulePercent").textContent = Math.round(pct) + "%";
-            document.getElementById("ruleAgree").checked = !!consents[ri];
-            document.getElementById("ruleNext").disabled = !document.getElementById("ruleAgree").checked;
-            document.getElementById("ruleConsentTime").textContent =
-                times[ri] ? "✓ Disetujui pada " + times[ri] : "";
-        }
+function renderRule(){
+  const r=rules[ri];
+  document.getElementById("ruleNumber").textContent="ATURAN "+r.no;
+  document.getElementById("ruleTitle").textContent=r.title;
+  document.getElementById("ruleText").textContent=r.text;
+  document.getElementById("ruleCounter").textContent="Aturan "+(ri+1)+" dari "+rules.length;
+  const pct=((ri+1)/rules.length*100);
+  document.getElementById("ruleBar").style.width=pct+"%";
+  document.getElementById("rulePercent").textContent=Math.round(pct)+"%";
+  document.getElementById("ruleAgree").checked=!!consents[ri];
+  document.getElementById("ruleNext").disabled=!document.getElementById("ruleAgree").checked;
+  document.getElementById("ruleConsentTime").textContent=
+    times[ri] ? "✓ Disetujui pada "+times[ri] : "";
+}
 
-        function toggleRuleConsent() {
-            const cb = document.getElementById("ruleAgree");
-            cb.checked = !cb.checked;
-            document.getElementById("ruleNext").disabled = !cb.checked;
-        }
+function toggleRuleConsent(){
+  const cb=document.getElementById("ruleAgree");
+  cb.checked=!cb.checked;
+  document.getElementById("ruleNext").disabled=!cb.checked;
+}
 
-        document.getElementById("ruleAgree").addEventListener("change", e => {
-            document.getElementById("ruleNext").disabled = !e.target.checked;
-        });
+document.getElementById("ruleAgree").addEventListener("change",e=>{
+  document.getElementById("ruleNext").disabled=!e.target.checked;
+});
 
-        function ruleNext() {
-            if (!document.getElementById("ruleAgree").checked) return;
-            consents[ri] = true;
-            times[ri] = new Date().toLocaleString("id-ID", { dateStyle: "long", timeStyle: "short" });
-            if (ri < rules.length - 1) {
-                ri++;
-                renderRule();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-                go("screening");
-            }
-        }
+function ruleNext(){
+  if(!document.getElementById("ruleAgree").checked)return;
+  consents[ri]=true;
+  times[ri]=new Date().toLocaleString("id-ID",{dateStyle:"long",timeStyle:"short"});
+  if(ri<rules.length-1){
+    ri++;
+    renderRule();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }else{
+    go("screening");
+  }
+}
 
-        function ruleBack() {
-            if (ri > 0) {
-                ri--;
-                renderRule();
-            } else {
-                go("welcome");
-            }
-        }
+function ruleBack(){
+  if(ri>0){
+    ri--;
+    renderRule();
+  }else{
+    go("welcome");
+  }
+}
 
-        function syncChoiceStyles() {
-            document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
-                const label = document.querySelector(`label[for="${el.id}"]`);
-                if (label) label.classList.add("active-choice");
-            });
-        }
+function syncChoiceStyles(){
+  document.querySelectorAll('input[type="radio"]:checked').forEach(el=>{
+    const label=document.querySelector(`label[for="${el.id}"]`);
+    if(label) label.classList.add("active-choice");
+  });
+}
 
-        function setRadioValue(selectId, value) {
-            const select = document.getElementById(selectId);
-            if (select) select.value = value;
-        }
+function setRadioValue(selectId,value){
+  const select=document.getElementById(selectId);
+  if(select) select.value=value;
+}
 
-        document.querySelectorAll('input[name="isTangselChoice"]').forEach(el => {
-            el.addEventListener("change", () => {
-                setRadioValue("isTangsel", el.value);
-                el.closest(".d-grid")?.querySelectorAll(".choice-btn").forEach(btn => {
-                    btn.classList.remove("active-choice");
-                });
-                document.querySelector(`label[for="${el.id}"]`)?.classList.add("active-choice");
-            });
-        });
+document.querySelectorAll('input[name="isTangselChoice"]').forEach(el=>{
+  el.addEventListener("change",()=>{
+    setRadioValue("isTangsel",el.value);
+    el.closest(".d-grid")?.querySelectorAll(".choice-btn").forEach(btn=>{
+      btn.classList.remove("active-choice");
+    });
+    document.querySelector(`label[for="${el.id}"]`)?.classList.add("active-choice");
+  });
+});
 
-        document.querySelectorAll('input[name="incomeChoice"]').forEach(el => {
-            el.addEventListener("change", () => {
-                setRadioValue("income", el.value);
-                el.closest(".d-grid")?.querySelectorAll(".choice-btn").forEach(btn => {
-                    btn.classList.remove("active-choice");
-                });
-                document.querySelector(`label[for="${el.id}"]`)?.classList.add("active-choice");
-            });
-        });
+document.querySelectorAll('input[name="incomeChoice"]').forEach(el=>{
+  el.addEventListener("change",()=>{
+    setRadioValue("income",el.value);
+    el.closest(".d-grid")?.querySelectorAll(".choice-btn").forEach(btn=>{
+      btn.classList.remove("active-choice");
+    });
+    document.querySelector(`label[for="${el.id}"]`)?.classList.add("active-choice");
+  });
+});
 
-        document.getElementById("homeStatus").addEventListener("change", function () {
-            const box = document.getElementById("homeNotice");
-            if (this.value === "boarding") {
-                box.className = "danger-card";
-                box.innerHTML = "<strong>⚠️ Kos belum memenuhi syarat pendaftaran.</strong><br>Untuk saat ini kami membutuhkan tempat tinggal tetap yang dapat diverifikasi.";
-            } else {
-                box.className = "info-card";
-                box.innerHTML = "Rumah sendiri menjadi prioritas. Rumah keluarga/orang tua/pasangan dapat masuk review. Kos tidak memenuhi kriteria onboarding.";
-            }
-        });
+document.getElementById("homeStatus").addEventListener("change",function(){
+  const box=document.getElementById("homeNotice");
+  if(this.value==="boarding"){
+    box.className="danger-card";
+    box.innerHTML="<strong>⚠️ Kos belum memenuhi syarat pendaftaran.</strong><br>Untuk saat ini kami membutuhkan tempat tinggal tetap yang dapat diverifikasi.";
+  }else{
+    box.className="info-card";
+    box.innerHTML="Rumah sendiri menjadi prioritas. Rumah keluarga/orang tua/pasangan dapat masuk review. Kos tidak memenuhi kriteria onboarding.";
+  }
+});
 
-        function v(id) {
-            return document.getElementById(id)?.value?.trim() || "";
-        }
+function v(id){
+  return document.getElementById(id)?.value?.trim()||"";
+}
 
-        function screenNext() {
-            const requiredFields = [
-                ["name", "Nama lengkap"],
-                ["phone", "Nomor WhatsApp aktif"],
-                ["isTangsel", "Domisili Tangerang Selatan"],
-                ["kelurahan", "Kelurahan"],
-                ["kecamatan", "Kecamatan"],
-                ["kota", "Kota/Kabupaten"],
-                ["homeStatus", "Status tempat tinggal"],
-                ["lotte", "Jarak dari Lotte Ciputat"],
-                ["landmark", "Patokan rumah"],
-                ["maps", "Link Google Maps rumah"],
-                ["income", "Syarat pendapatan > Rp500.000/hari"],
-                ["hours", "Jam mulai kerja"],
-                ["days", "Hari kerja per minggu"],
-                ["experience", "Pengalaman menjadi driver"],
-                ["platform", "Aplikasi yang biasa digunakan"],
-                ["pay", "Kesanggupan bayar Rp160.000/hari"],
-                ["deadline", "Kesanggupan bayar maksimal pukul 22.00"],
-                ["weekly", "Kesanggupan pemeriksaan mobil setiap minggu"],
-                ["maintenance", "Kesanggupan mengikuti jadwal perawatan"],
-                ["locationConsent", "Kesediaan berbagi lokasi saat bekerja"],
-                ["area", "Kesanggupan mengikuti aturan area penggunaan"]
-            ];
+function screenNext(){
+  const requiredFields=[
+    ["name","Nama lengkap"],
+    ["phone","Nomor WhatsApp aktif"],
+    ["isTangsel","Domisili Tangerang Selatan"],
+    ["kelurahan","Kelurahan"],
+    ["kecamatan","Kecamatan"],
+    ["kota","Kota/Kabupaten"],
+    ["homeStatus","Status tempat tinggal"],
+    ["lotte","Jarak dari Lotte Ciputat"],
+    ["landmark","Patokan rumah"],
+    ["maps","Link Google Maps rumah"],
+    ["income","Syarat pendapatan > Rp500.000/hari"],
+    ["hours","Jam mulai kerja"],
+    ["days","Hari kerja per minggu"],
+    ["experience","Pengalaman menjadi driver"],
+    ["platform","Aplikasi yang biasa digunakan"],
+    ["pay","Kesanggupan bayar Rp160.000/hari"],
+    ["deadline","Kesanggupan bayar maksimal pukul 22.00"],
+    ["weekly","Kesanggupan pemeriksaan mobil setiap minggu"],
+    ["maintenance","Kesanggupan mengikuti jadwal perawatan"],
+    ["locationConsent","Kesediaan berbagi lokasi saat bekerja"],
+    ["area","Kesanggupan mengikuti aturan area penggunaan"]
+  ];
 
-            // Hard gate: income is a mandatory requirement.
-            if (v("income") === "no") {
-                document.getElementById("blockedText").innerHTML =
-                    "<strong>Syarat pendapatan belum terpenuhi.</strong><br><br>" +
-                    "Pendapatan kotor lebih dari Rp500.000 per hari adalah <strong>syarat wajib</strong> untuk mendaftar. " +
-                    "Karena saat ini Anda belum bisa membuktikannya, pendaftaran tidak dapat dilanjutkan.";
-                go("blocked");
-                return;
-            }
+  // Hard gate: income is a mandatory requirement.
+  if(v("income")==="no"){
+    document.getElementById("blockedText").innerHTML=
+      "<strong>Syarat pendapatan belum terpenuhi.</strong><br><br>"+
+      "Pendapatan kotor lebih dari Rp500.000 per hari adalah <strong>syarat wajib</strong> untuk mendaftar. "+
+      "Karena saat ini Anda belum bisa membuktikannya, pendaftaran tidak dapat dilanjutkan.";
+    go("blocked");
+    return;
+  }
 
-            const missing = [];
+  const missing=[];
 
-            requiredFields.forEach(([id, label]) => {
-                if (!v(id)) missing.push(label);
-            });
+  requiredFields.forEach(([id,label])=>{
+    if(!v(id)) missing.push(label);
+  });
 
-            // Extra protection: read the visible radio buttons directly.
-            if (!document.querySelector('input[name="isTangselChoice"]:checked')) {
-                if (!missing.includes("Domisili Tangerang Selatan")) missing.push("Domisili Tangerang Selatan");
-            }
+  // Extra protection: read the visible radio buttons directly.
+  if(!document.querySelector('input[name="isTangselChoice"]:checked')){
+    if(!missing.includes("Domisili Tangerang Selatan")) missing.push("Domisili Tangerang Selatan");
+  }
 
-            if (!document.querySelector('input[name="incomeChoice"]:checked')) {
-                if (!missing.includes("Syarat pendapatan > Rp500.000/hari")) {
-                    missing.push("Syarat pendapatan > Rp500.000/hari");
-                }
-            }
+  if(!document.querySelector('input[name="incomeChoice"]:checked')){
+    if(!missing.includes("Syarat pendapatan > Rp500.000/hari")) {
+      missing.push("Syarat pendapatan > Rp500.000/hari");
+    }
+  }
 
-            if (missing.length) {
-                document.getElementById("screenError").innerHTML =
-                    "<strong>⚠️ Masih ada yang belum diisi:</strong><ul class='mb-0 mt-2 ps-3'>" +
-                    missing.map(x => "<li>" + x + "</li>").join("") +
-                    "</ul>";
-                window.scrollTo({
-                    top: document.getElementById("screenError").offsetTop - 120,
-                    behavior: "smooth"
-                });
-                return;
-            }
+  if(missing.length){
+    document.getElementById("screenError").innerHTML=
+      "<strong>⚠️ Masih ada yang belum diisi:</strong><ul class='mb-0 mt-2 ps-3'>"+
+      missing.map(x=>"<li>"+x+"</li>").join("")+
+      "</ul>";
+    window.scrollTo({
+      top:document.getElementById("screenError").offsetTop-120,
+      behavior:"smooth"
+    });
+    return;
+  }
 
-            if (v("homeStatus") === "boarding") {
-                document.getElementById("blockedText").innerHTML =
-                    "<strong>Status tempat tinggal: Kos.</strong><br><br>" +
-                    "Untuk saat ini kos belum memenuhi kriteria pendaftaran.";
-                go("blocked");
-                return;
-            }
+  if(v("homeStatus")==="boarding"){
+    document.getElementById("blockedText").innerHTML=
+      "<strong>Status tempat tinggal: Kos.</strong><br><br>"+
+      "Untuk saat ini kos belum memenuhi kriteria pendaftaran.";
+    go("blocked");
+    return;
+  }
 
-            const fundamental = ["isTangsel", "income", "pay", "deadline", "weekly", "maintenance", "locationConsent", "area"];
-            const bad = fundamental.find(x => ["no", "unsure"].includes(v(x)));
+  const fundamental=["isTangsel","income","pay","deadline","weekly","maintenance","locationConsent","area"];
+  const bad=fundamental.find(x=>["no","unsure"].includes(v(x)));
 
-            if (bad) {
-                const labels = {
-                    isTangsel: "domisili Tangerang Selatan",
-                    income: "syarat pendapatan > Rp500.000/hari",
-                    pay: "pembayaran Rp160.000/hari",
-                    deadline: "pembayaran maksimal pukul 22.00",
-                    weekly: "pemeriksaan kendaraan setiap minggu",
-                    maintenance: "jadwal perawatan kendaraan",
-                    locationConsent: "berbagi lokasi saat bekerja",
-                    area: "aturan area penggunaan"
-                };
+  if(bad){
+    const labels={
+      isTangsel:"domisili Tangerang Selatan",
+      income:"syarat pendapatan > Rp500.000/hari",
+      pay:"pembayaran Rp160.000/hari",
+      deadline:"pembayaran maksimal pukul 22.00",
+      weekly:"pemeriksaan kendaraan setiap minggu",
+      maintenance:"jadwal perawatan kendaraan",
+      locationConsent:"berbagi lokasi saat bekerja",
+      area:"aturan area penggunaan"
+    };
 
-                document.getElementById("blockedText").innerHTML =
-                    "<strong>Ada syarat utama yang belum sesuai.</strong><br><br>" +
-                    "Bagian yang belum sesuai: <strong>" + (labels[bad] || "syarat operasional") + "</strong>.";
-                go("blocked");
-                return;
-            }
+    document.getElementById("blockedText").innerHTML=
+      "<strong>Ada syarat utama yang belum sesuai.</strong><br><br>"+
+      "Bagian yang belum sesuai: <strong>"+(labels[bad]||"syarat operasional")+"</strong>.";
+    go("blocked");
+    return;
+  }
 
-            if (v("isTangsel") !== "yes") {
-                document.getElementById("blockedText").textContent =
-                    "Saat ini proses memprioritaskan calon mitra yang berdomisili di Tangerang Selatan, khususnya area Ciputat.";
-                go("blocked");
-                return;
-            }
+  if(v("isTangsel")!=="yes"){
+    document.getElementById("blockedText").textContent=
+      "Saat ini proses memprioritaskan calon mitra yang berdomisili di Tangerang Selatan, khususnya area Ciputat.";
+    go("blocked");
+    return;
+  }
 
-            go("details");
-        }
-        function review() {
+  go("details");
+}
+function review(){
 
-            const req = [
-                "ktp", "nickname", "birthPlace", "birthDate", "marital", "stayDuration",
-                "address", "rt", "rw", "postcode", "landmark2", "maps2",
-                "mother", "motherPhone", "emergency", "emergencyPhone",
-                "arrears", "repo", "ownCar", "selfUse"
-            ];
+  const req=[
+    "ktp","nickname","birthPlace","birthDate","marital","stayDuration",
+    "address","rt","rw","postcode","landmark2","maps2",
+    "mother","motherPhone","emergency","emergencyPhone",
+    "arrears","repo","ownCar","selfUse"
+  ];
 
-            if (
-                req.some(x => !v(x)) ||
-                [...document.querySelectorAll(".final")].some(x => !x.checked)
-            ) {
-                document.getElementById("detailError").textContent =
-                    "⚠️ Masih ada data yang belum diisi atau persetujuan yang belum dicentang.";
-                window.scrollTo({ top: document.getElementById("detailError").offsetTop - 120, behavior: "smooth" });
-                return;
-            }
+  if(
+    req.some(x=>!v(x)) ||
+    [...document.querySelectorAll(".final")].some(x=>!x.checked)
+  ){
+    document.getElementById("detailError").textContent=
+      "⚠️ Masih ada data yang belum diisi atau persetujuan yang belum dicentang.";
+    window.scrollTo({top:document.getElementById("detailError").offsetTop-120,behavior:"smooth"});
+    return;
+  }
 
-            let status = v("homeStatus") === "own"
-                ? "PRIORITAS — RUMAH SENDIRI"
-                : "REVIEW — TEMPAT TINGGAL BUKAN RUMAH SENDIRI";
+  let status=v("homeStatus")==="own"
+    ?"PRIORITAS — RUMAH SENDIRI"
+    :"REVIEW — TEMPAT TINGGAL BUKAN RUMAH SENDIRI";
 
-            const s = `HASIL ONBOARDING CALON MITRA
+  const s=`HASIL ONBOARDING CALON MITRA
 
 STATUS AWAL: ${status}
 
@@ -1465,8 +1221,8 @@ Kecamatan: ${v("kecamatan")}
 Kota/Kabupaten: ${v("kota")}
 Status rumah: ${v("homeStatus")}
 Lama tinggal: ${v("stayDuration")}
-Pemilik rumah: ${v("homeOwner") || "-"}
-Hubungan: ${v("homeRelation") || "-"}
+Pemilik rumah: ${v("homeOwner")||"-"}
+Hubungan: ${v("homeRelation")||"-"}
 Patokan: ${v("landmark2")}
 Google Maps: ${v("maps2")}
 Dekat Lotte Ciputat: ${v("lotte")}
@@ -1482,58 +1238,57 @@ Platform: ${v("platform")}
 
 KELUARGA
 Ibu: ${v("mother")} / ${v("motherPhone")}
-Pasangan/keluarga: ${v("family") || "-"} / ${v("familyPhone") || "-"}
+Pasangan/keluarga: ${v("family")||"-"} / ${v("familyPhone")||"-"}
 Kontak darurat: ${v("emergency")} / ${v("emergencyPhone")}
 
 RIWAYAT
 Tunggakan: ${v("arrears")}
-Catatan tunggakan: ${v("arrearsNote") || "-"}
+Catatan tunggakan: ${v("arrearsNote")||"-"}
 Pernah ditarik karena pembayaran: ${v("repo")}
-Catatan: ${v("repoNote") || "-"}
+Catatan: ${v("repoNote")||"-"}
 Kendaraan pribadi: ${v("ownCar")}
 Digunakan sendiri: ${v("selfUse")}
-Jika tidak: ${v("otherUser") || "-"}
+Jika tidak: ${v("otherUser")||"-"}
 
 CONSENT ATURAN
-${rules.map((r, i) => `${r.no} — ${r.title}: DISETUJUI — ${times[i] || "-"}`).join("\n")}
+${rules.map((r,i)=>`${r.no} — ${r.title}: DISETUJUI — ${times[i]||"-"}`).join("\n")}
 
 FINAL CONSENT: SEMUA DISETUJUI
-Waktu submit: ${new Date().toLocaleString("id-ID", { dateStyle: "long", timeStyle: "short" })}`;
+Waktu submit: ${new Date().toLocaleString("id-ID",{dateStyle:"long",timeStyle:"short"})}`;
 
-            document.getElementById("summary").textContent = s;
-            go("review");
-        }
+  document.getElementById("summary").textContent=s;
+  go("review");
+}
 
-        function submitFinal() {
-            const msg = document.getElementById("summary").textContent +
-                "\n\nMohon dilakukan review calon mitra.";
+function submitFinal(){
+  const msg=document.getElementById("summary").textContent+
+    "\n\nMohon dilakukan review calon mitra.";
 
-            document.getElementById("waMessage").value = msg;
-            document.getElementById("waLink").href =
-                "https://wa.me/6287720847415?text=" + encodeURIComponent(msg);
+  document.getElementById("waMessage").value=msg;
+  document.getElementById("waLink").href=
+    "https://wa.me/6287720847415?text="+encodeURIComponent(msg);
 
-            go("done");
-        }
+  go("done");
+}
 
-        function copyWA() {
-            const text = document.getElementById("waMessage").value;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert("Pesan berhasil disalin.");
-                });
-            } else {
-                const ta = document.getElementById("waMessage");
-                ta.select();
-                document.execCommand("copy");
-                alert("Pesan berhasil disalin.");
-            }
-        }
+function copyWA(){
+  const text=document.getElementById("waMessage").value;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      alert("Pesan berhasil disalin.");
+    });
+  }else{
+    const ta=document.getElementById("waMessage");
+    ta.select();
+    document.execCommand("copy");
+    alert("Pesan berhasil disalin.");
+  }
+}
 
-        syncChoiceStyles();
-        updateProgress("welcome");
-    </script>
+syncChoiceStyles();
+updateProgress("welcome");
+</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
