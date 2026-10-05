@@ -1,0 +1,30 @@
+{
+  "name": "onboarding-mitra",
+  "version": "1.0.0",
+  "description": "Onboarding form for driver partners (single-page HTML app).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christsaragih/onboarding-mitra.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/christsaragih/onboarding-mitra/issues"
+  },
+  "homepage": "https://github.com/christsaragih/onboarding-mitra#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "playwright": "^1.63.0"
+  }
+}

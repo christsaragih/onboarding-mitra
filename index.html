@@ -460,7 +460,7 @@ textarea.form-control{min-height:100px}
 
           <div class="action-bar">
             <div class="d-flex flex-column flex-sm-row gap-2">
-              <button type="button" class="btn btn-light border flex-fill" onclick="go('rules')">
+              <button type="button" class="btn btn-light border flex-fill" onclick="rereadRules()">
                 <i class="bi bi-arrow-left me-1"></i> Baca aturan lagi
               </button>
               <button type="button" id="checkQuizBtn" class="btn btn-primary flex-fill" onclick="checkQuiz(event)">
@@ -1023,7 +1023,7 @@ Kondisi kendaraan akan diperiksa saat pengembalian.
 
 Mitra wajib menjaga kendaraan sampai benar-benar dikembalikan dan menyelesaikan kewajiban pembayaran atau kewajiban lain yang masih ada sesuai perjanjian.`}
 ];
-let ri=0,consents=[],times=[];
+let ri=0,consents=[],times=[],quizPassTimer=null;
 const stepIds=["welcome","rules","quiz","screening","details","review","done","blocked"];
 
 function updateProgress(id){
@@ -1047,10 +1047,20 @@ function go(id){
   const quizPassed=sessionStorage.getItem("quizPassed")==="true";
   const gatedSteps=["screening","details","review","done"];
 
+  // Any navigation cancels the pending post-quiz redirect so a stale timer
+  // cannot pull the user away from the step they just chose.
+  if(quizPassTimer){
+    clearTimeout(quizPassTimer);
+    quizPassTimer=null;
+  }
+
   if(gatedSteps.includes(id) && !quizPassed){
     id="quiz";
     renderQuiz();
   }
+
+  // The rule screen is data-driven, so always render it before showing it.
+  if(id==="rules") renderRule();
 
   stepIds.forEach(x=>{
     const el=document.getElementById(x);
@@ -1063,8 +1073,17 @@ function go(id){
 function startRules(){
   sessionStorage.removeItem("quizPassed");
   ri=0;
+  // Reading the rules from the start requires fresh consent for every rule,
+  // so a previous (possibly failed) attempt must not leave them pre-approved.
+  consents=[];
+  times=[];
   go("rules");
-  renderRule();
+}
+
+// "Baca aturan lagi": re-read the rules from the first one.
+function rereadRules(){
+  ri=0;
+  go("rules");
 }
 
 function renderRule(){
@@ -1113,6 +1132,17 @@ function ruleBack(){
   }else{
     go("welcome");
   }
+}
+
+const quizFailureOk=document.getElementById("quizFailureOk");
+if(quizFailureOk){
+  quizFailureOk.addEventListener("click",()=>{
+    const modal=document.getElementById("quizFailureModal");
+    if(modal) modal.classList.remove("show");
+    document.body.style.overflow="";
+    sessionStorage.removeItem("quizPassed");
+    go("welcome");
+  });
 }
 
 function syncChoiceStyles(){
@@ -1285,7 +1315,8 @@ function quizPass(){
       </p>
     </div>`;
 
-  setTimeout(()=>{
+  quizPassTimer=setTimeout(()=>{
+    quizPassTimer=null;
     go("screening");
   },900);
 }
