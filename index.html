@@ -259,6 +259,36 @@ textarea.form-control{min-height:100px}
   .action-bar .btn{width:100%}
 }
 </style>
+
+<style>
+#quiz .form-check-box:has(input:checked){
+  background:#eff8ff;
+  border-color:var(--primary);
+}
+#quiz fieldset{min-width:0;}
+#quiz legend{font-size:18px;line-height:1.45;}
+</style>
+
+
+<style>
+#quizFailureModal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,24,40,.62)}
+#quizFailureModal.show{display:flex}
+.quiz-modal-card{width:100%;max-width:520px;background:#fff;border-radius:20px;padding:26px;box-shadow:0 20px 60px rgba(16,24,40,.25);text-align:center}
+.quiz-modal-icon{width:60px;height:60px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fef3f2;color:#b42318;font-size:28px}
+.quiz-modal-card h3{margin:0 0 10px;font-size:23px}
+.quiz-modal-card p{margin:0 0 20px;color:#667085}
+</style>
+<div id="quizFailureModal" role="dialog" aria-modal="true" aria-labelledby="quizFailureTitle">
+  <div class="quiz-modal-card">
+    <div class="quiz-modal-icon"><i class="bi bi-x-lg"></i></div>
+    <h3 id="quizFailureTitle">Quiz Tidak Lulus</h3>
+    <p id="quizFailureMessage"></p>
+    <button type="button" class="btn btn-primary w-100" id="quizFailureOk">
+      Baca Ulang &amp; Quiz Lagi
+    </button>
+  </div>
+</div>
+
 </head>
 
 <body>
@@ -393,6 +423,52 @@ textarea.form-control{min-height:100px}
             </button>
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <!-- QUIZ GATE -->
+    <section id="quiz" class="step">
+      <div class="content">
+        <span class="badge badge-soft rounded-pill">Tahap Wajib</span>
+        <h1>Quiz Pemahaman</h1>
+        <p class="muted">
+          Sebelum mengisi data diri, pastikan Anda benar-benar memahami 12 aturan yang sudah dibaca.
+          Quiz ini wajib lulus sebelum pendaftaran dapat dilanjutkan.
+        </p>
+
+        <div class="danger-card mt-4">
+          <strong>⚠️ Syarat kelulusan sangat ketat</strong>
+          <p class="mb-0 mt-2">
+            Quiz terdiri dari <strong>12 soal</strong> dan Anda harus menjawab
+            <strong>12/12 dengan benar</strong>. Salah <strong>1 soal saja</strong> berarti tidak lulus.
+            Jika tidak lulus, Anda harus kembali ke tahap awal dan membaca ulang seluruh aturan sebelum
+            dapat mengulang quiz.
+          </p>
+        </div>
+
+        <div class="info-card mt-4">
+          <strong>Alur:</strong>
+          Baca 12 aturan → Ikuti quiz → Lulus 12/12 → Baru isi data diri.
+        </div>
+
+        <form id="quizForm" class="mt-4" novalidate>
+          <div id="quizQuestions"></div>
+
+          <div id="quizError" class="error"></div>
+          <div id="quizResult" class="mt-4"></div>
+
+          <div class="action-bar">
+            <div class="d-flex flex-column flex-sm-row gap-2">
+              <button type="button" class="btn btn-light border flex-fill" onclick="go('rules')">
+                <i class="bi bi-arrow-left me-1"></i> Baca aturan lagi
+              </button>
+              <button type="button" id="checkQuizBtn" class="btn btn-primary flex-fill" onclick="checkQuiz(event)">
+                Periksa Jawaban <i class="bi bi-check2-circle ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </section>
 
@@ -948,15 +1024,16 @@ Kondisi kendaraan akan diperiksa saat pengembalian.
 Mitra wajib menjaga kendaraan sampai benar-benar dikembalikan dan menyelesaikan kewajiban pembayaran atau kewajiban lain yang masih ada sesuai perjanjian.`}
 ];
 let ri=0,consents=[],times=[];
-const stepIds=["welcome","rules","screening","details","review","done","blocked"];
+const stepIds=["welcome","rules","quiz","screening","details","review","done","blocked"];
 
 function updateProgress(id){
   const map={
     welcome:["Selamat datang",0],
-    rules:["Langkah 1 dari 4",25],
-    screening:["Langkah 2 dari 4",50],
-    details:["Langkah 3 dari 4",75],
-    review:["Langkah 4 dari 4",100],
+    rules:["Langkah 1 dari 5",20],
+    quiz:["Langkah 2 dari 5",40],
+    screening:["Langkah 3 dari 5",60],
+    details:["Langkah 4 dari 5",80],
+    review:["Langkah 5 dari 5",100],
     done:["Selesai",100],
     blocked:["Pendaftaran",0]
   };
@@ -967,6 +1044,14 @@ function updateProgress(id){
 }
 
 function go(id){
+  const quizPassed=sessionStorage.getItem("quizPassed")==="true";
+  const gatedSteps=["screening","details","review","done"];
+
+  if(gatedSteps.includes(id) && !quizPassed){
+    id="quiz";
+    renderQuiz();
+  }
+
   stepIds.forEach(x=>{
     const el=document.getElementById(x);
     if(el) el.classList.toggle("active",x===id);
@@ -976,6 +1061,7 @@ function go(id){
 }
 
 function startRules(){
+  sessionStorage.removeItem("quizPassed");
   ri=0;
   go("rules");
   renderRule();
@@ -1015,7 +1101,8 @@ function ruleNext(){
     renderRule();
     window.scrollTo({top:0,behavior:"smooth"});
   }else{
-    go("screening");
+    go("quiz");
+    renderQuiz();
   }
 }
 
@@ -1075,7 +1162,178 @@ function v(id){
   return document.getElementById(id)?.value?.trim()||"";
 }
 
+
+const quizQuestions = [
+  {
+    q:"Dalam skema kerja sama, berapa pembayaran kendaraan yang menjadi kewajiban utama setiap hari?",
+    options:["Rp100.000","Rp160.000","Rp340.000","Rp500.000"],
+    answer:1
+  },
+  {
+    q:"Batas maksimal pembayaran harian adalah pukul berapa?",
+    options:["18.00 WIB","20.00 WIB","22.00 WIB","23.59 WIB"],
+    answer:2
+  },
+  {
+    q:"Jika sakit atau cuti dan tidak bekerja, apakah kewajiban pembayaran otomatis dibebaskan?",
+    options:["Ya, otomatis bebas","Tidak, dampaknya perlu dikomunikasikan dan diselesaikan sesuai kesepakatan","Hanya jika sakit","Hanya jika cuti"],
+    answer:1
+  },
+  {
+    q:"Apa yang dapat terjadi jika pembayaran tertunggak 2 hari berturut-turut tanpa penjelasan yang dapat diterima?",
+    options:["Tidak ada konsekuensi","Pemilik dapat menghentikan penggunaan kendaraan dan meminta kendaraan dikembalikan","Pembayaran otomatis dihapus","Masa kerja sama otomatis diperpanjang"],
+    answer:1
+  },
+  {
+    q:"Minimal berapa kali kendaraan wajib dibawa untuk pemeriksaan setiap minggu?",
+    options:["Tidak perlu","1 kali","2 kali","Setiap hari"],
+    answer:1
+  },
+  {
+    q:"Oli wajib diperhatikan dan diganti maksimal setiap berapa kilometer?",
+    options:["1.000 km","3.000 km","5.000 km","10.000 km"],
+    answer:2
+  },
+  {
+    q:"Apa kewajiban mitra terkait kondisi kendaraan?",
+    options:["Menjaga kendaraan aman, bersih, dan dalam kondisi baik serta melaporkan masalah","Hanya mencuci kendaraan","Hanya menjaga ban","Menunggu sampai rusak parah"],
+    answer:0
+  },
+  {
+    q:"Saat kendaraan digunakan untuk bekerja, mitra bersedia melakukan apa?",
+    options:["Membagikan lokasi kendaraan sesuai mekanisme yang disepakati","Mematikan lokasi","Hanya membagikan lokasi saat diminta polisi","Tidak perlu memberikan informasi"],
+    answer:0
+  },
+  {
+    q:"Kendaraan pada dasarnya hanya boleh digunakan di wilayah mana?",
+    options:["Seluruh Indonesia","Jabodetabek sesuai kerja sama","Pulau Jawa","Bebas tanpa batas"],
+    answer:1
+  },
+  {
+    q:"Apa yang harus dilakukan jika terjadi kendala pembayaran, kerusakan, kecelakaan, atau keadaan darurat?",
+    options:["Menghilang sampai masalah selesai","Segera mengomunikasikan kepada pemilik","Menunggu ditanya","Mengabaikannya"],
+    answer:1
+  },
+  {
+    q:"Dalam kondisi tertentu, apakah pemilik dapat pause atau meminta kendaraan dikembalikan sesuai perjanjian?",
+    options:["Tidak pernah","Ya, termasuk kondisi servis/perbaikan atau pelanggaran penggunaan sesuai ketentuan","Hanya jika kendaraan baru","Hanya setelah 5 tahun"],
+    answer:1
+  },
+  {
+    q:"Jika kerja sama berakhir atau kendaraan harus dikembalikan sesuai ketentuan, apa kewajiban mitra?",
+    options:["Menyimpan kendaraan sampai ada pengganti","Mengembalikan kendaraan dan menyelesaikan kewajiban yang masih ada sesuai perjanjian","Menjual kendaraan","Mengembalikan kapan saja tanpa pemeriksaan"],
+    answer:1
+  }
+];
+
+function renderQuiz(){
+  const container=document.getElementById("quizQuestions");
+  if(!container) return;
+
+  container.innerHTML=quizQuestions.map((item,i)=>`
+    <fieldset class="info-card mb-4">
+      <legend class="fw-bold mb-3">${i+1}. ${item.q}</legend>
+      <div class="d-grid gap-2">
+        ${item.options.map((option,j)=>`
+          <label class="form-check-box">
+            <input type="radio" name="quiz_${i}" value="${j}">
+            <span class="choice-label">${option}</span>
+          </label>
+        `).join("")}
+      </div>
+    </fieldset>
+  `).join("");
+
+  document.getElementById("quizError").textContent="";
+  document.getElementById("quizResult").innerHTML="";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function quizFail(score){
+  sessionStorage.removeItem("quizPassed");
+
+  const modal=document.getElementById("quizFailureModal");
+  const message=document.getElementById("quizFailureMessage");
+
+  if(message){
+    message.innerHTML=
+      `Nilai Anda <strong>${score}/12</strong>.<br><br>`+
+      `Ada jawaban yang salah. Jika ingin tetap melanjutkan pendaftaran, `+
+      `<strong>Anda harus membaca ulang seluruh 12 aturan</strong> `+
+      `dan mengulang quiz sampai mendapatkan <strong>12/12</strong>.`;
+  }
+
+  // Clear answers immediately so the failed attempt cannot be reused.
+  document.getElementById("quizForm").reset();
+
+  // Show blocking popup. Do not automatically move the user away.
+  if(modal){
+    modal.classList.add("show");
+    document.body.style.overflow="hidden";
+  }
+}
+
+function quizPass(){
+  sessionStorage.setItem("quizPassed","true");
+
+  document.getElementById("quizResult").innerHTML=
+    `<div class="success-card">
+      <strong>✅ Quiz lulus — 12/12</strong>
+      <p class="mb-0 mt-2">
+        Anda telah memahami seluruh aturan. Sekarang Anda dapat melanjutkan
+        ke tahap pengisian data diri.
+      </p>
+    </div>`;
+
+  setTimeout(()=>{
+    go("screening");
+  },900);
+}
+
+function checkQuiz(e){
+  if(e) e.preventDefault();
+
+  const error=document.getElementById("quizError");
+  const result=document.getElementById("quizResult");
+  error.textContent="";
+  result.innerHTML="";
+
+  let score=0;
+  let unanswered=[];
+
+  quizQuestions.forEach((item,i)=>{
+    const selected=document.querySelector(`input[name="quiz_${i}"]:checked`);
+    if(!selected){
+      unanswered.push(i+1);
+      return;
+    }
+    if(Number(selected.value)===item.answer) score++;
+  });
+
+  if(unanswered.length){
+    error.textContent="⚠️ Semua 12 soal wajib dijawab. Belum dijawab: soal "+unanswered.join(", ")+".";
+    error.scrollIntoView({behavior:"smooth",block:"center"});
+    return false;
+  }
+
+  // Show the score immediately so the button never appears to do nothing.
+  result.innerHTML=`<div class="info-card"><strong>Hasil pemeriksaan: ${score}/12</strong></div>`;
+
+  if(score===12){
+    quizPass();
+  }else{
+    quizFail(score);
+  }
+  return false;
+}
+
 function screenNext(){
+  if(sessionStorage.getItem("quizPassed")!=="true"){
+    go("quiz");
+    renderQuiz();
+    return;
+  }
+
   const requiredFields=[
     ["name","Nama lengkap"],
     ["phone","Nomor WhatsApp aktif"],
